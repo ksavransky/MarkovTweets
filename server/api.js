@@ -3,8 +3,6 @@ const api = module.exports = require('express').Router()
 var Twitter = require('twitter-node-client').Twitter;
 
 function twitterAuth(req, res){
-  // console.log('req.query.userName')
-  // console.log(req.query.userName)
   const config = {
       "consumerKey": "PiRcOvzzbivfKnwfU67DPui31",
       "consumerSecret": "XDk6pegf6ojDZHtVlaB0ndmBHkmW7vH5v5WXOrY3o6yM37YhzC",
@@ -14,12 +12,12 @@ function twitterAuth(req, res){
   }
   var twitter = new Twitter(config);
   var error = function (err, response, body) {
-    console.log('ERROR - err:', err);
-    console.log('ERROR - response:', response);
+    // console.log('ERROR - err:', err);
+    // console.log('ERROR - response:', response);
     res.status(500).send(err);
   };
   var success = function (data) {
-    console.log('Data [%s]', data);
+    // console.log('Data [%s]', data);
     res.status(200).send(data);
   };
   twitter.getUserTimeline({ screen_name: req.query.userName, count: '10'}, error, success);
