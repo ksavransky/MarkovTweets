@@ -1,0 +1,30 @@
+const api = module.exports = require('express').Router()
+
+var Twitter = require('twitter-node-client').Twitter;
+
+function twitterAuth(req, res){
+  const config = {
+      "consumerKey": "PiRcOvzzbivfKnwfU67DPui31",
+      "consumerSecret": "XDk6pegf6ojDZHtVlaB0ndmBHkmW7vH5v5WXOrY3o6yM37YhzC",
+      "accessToken": "831991073610174464-kyCUce44Jtg0TTDqfnM4RPAfBnGplpJ",
+      "accessTokenSecret": "6SrIYkogDnJgNtATcfGKdkCyH0KhfVoghvixJG0yrsNUW",
+      "callBackUrl": "http://localhost:3000/"
+  }
+  var twitter = new Twitter(config);
+  var error = function (err, response, body) {
+    console.log('ERROR [%s]', err);
+    res.status(response).send(err);
+  };
+  var success = function (data) {
+    console.log('Data [%s]', data);
+    res.status(200).send(data);
+  };
+  twitter.getUserTimeline({ screen_name: 'konsavransky', count: '10'}, error, success);
+}
+
+api
+  .get('/twitter-auth', twitterAuth) 
+// No routes matched? 404.
+api.use((req, res) => res.status(404).end())
+
+
