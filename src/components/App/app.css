@@ -3,9 +3,24 @@
 }
 
 #app #app-header {
-  background-color: #222;
-  height: 150px;
+  background-color: #135086;
+  height: 100px;
   padding: 20px;
   color: white;
+}
+
+#app h4, #app h5 {
+  padding: 30px;
+  color: #3e3e3e;
+}
+
+#app .button {
+  margin-left: 10px;
+}
+
+.search-area {
+    background-color: #e2e9ff;
+    min-height: calc(100vh - 100px);
+    height: 100%;
 }
 
