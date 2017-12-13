@@ -24,3 +24,9 @@
     height: 100%;
 }
 
+#app .results {
+  width: 100%;
+  padding: 30px;
+}
+
+

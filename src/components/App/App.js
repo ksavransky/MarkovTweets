@@ -4,8 +4,22 @@ import './app.css';
 
 class App extends Component {
   
+  componentDidMount(){
+    document.addEventListener('keydown', this.enterSubmit.bind(this))
+  }
+  
+  componentWillUnmount(){
+    document.removeEventListener('keydown', this.enterSubmit.bind(this))
+  }
+  
+  enterSubmit(event){
+    if(event.keyCode === 13) {
+      this.getTweets()
+    }
+  }
+  
   getTweets(){
-    this.props.actions.twitterAuth(this.refs.search.value)
+    this.props.actions.twitterAuth(this.refs.search.value === '' ? NOT_REAL_USER : this.refs.search.value)
   }
 
   render() {
@@ -27,5 +41,7 @@ class App extends Component {
     );
   }
 }
+
+const NOT_REAL_USER = 'notrealman12345654312x'
 
 export default App;
