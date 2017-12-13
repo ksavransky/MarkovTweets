@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 export const TWITTER_AUTH_START = "TWITTER_AUTH_START";
-export const twitterAuthStart = () => {
-    return { type: TWITTER_AUTH_START }
+export const twitterAuthStart = (userName) => {
+    return { type: TWITTER_AUTH_START, userName }
 }
 
 export const TWITTER_AUTH_RESULTS = "TWITTER_AUTH_RESULTS";
@@ -16,10 +16,10 @@ export const twitterAuthError = (data) => {
 }
 
 export const TWITTER_AUTH = "TWITTER_AUTH";
-export const twitterAuth = () => {
+export const twitterAuth = (userName) => {
     return dispatch => {
-        dispatch(twitterAuthStart());
-        axios.get(`/api/twitter-auth`)
+        dispatch(twitterAuthStart(userName));
+        axios.get(`/api/twitter-auth?userName=${userName}`)
             .then(res => dispatch(twitterAuthResults(JSON.stringify(res.data))))
             .catch(err => dispatch(twitterAuthError(err)))
 

@@ -7,9 +7,9 @@ const initialState = {
 const main = (state = initialState, action) => {
     switch (action.type) {
         case TWITTER_AUTH_RESULTS:
-            return { ...state, results: "Twitter Auth Succeeded!  " + action.data }
+            return { ...state, results: action.data }
         case TWITTER_AUTH_ERROR:
-            return { ...state, results: "Twitter Auth Failed!  " + action.data }
+            return { ...state, results: "The User Does Not Exist. Please Search Again." }
         default:
             return state
     }
