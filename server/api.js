@@ -2,7 +2,7 @@ const api = module.exports = require('express').Router()
 
 var Twitter = require('twitter-node-client').Twitter;
 
-function twitterAuth(req, res){
+function twitterSearch(req, res){
   const config = {
       "consumerKey": "PiRcOvzzbivfKnwfU67DPui31",
       "consumerSecret": "XDk6pegf6ojDZHtVlaB0ndmBHkmW7vH5v5WXOrY3o6yM37YhzC",
@@ -24,7 +24,7 @@ function twitterAuth(req, res){
 }
 
 api
-  .get('/twitter-auth', twitterAuth) 
+  .get('/twitter-search', twitterSearch) 
 // No routes matched? 404.
 api.use((req, res) => res.status(404).end())
 

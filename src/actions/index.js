@@ -1,27 +1,27 @@
 import axios from 'axios';
 
-export const TWITTER_AUTH_START = "TWITTER_AUTH_START";
-export const twitterAuthStart = (userName) => {
-    return { type: TWITTER_AUTH_START, userName }
+export const TWITTER_SEARCH_START = "TWITTER_SEARCH_START";
+export const twitterSearchStart = (userName) => {
+    return { type: TWITTER_SEARCH_START, userName }
 }
 
-export const TWITTER_AUTH_RESULTS = "TWITTER_AUTH_RESULTS";
-export const twitterAuthResults = (data) => {
-    return { type: TWITTER_AUTH_RESULTS, data }
+export const TWITTER_SEARCH_RESULTS = "TWITTER_SEARCH_RESULTS";
+export const twitterSearchResults = (data) => {
+    return { type: TWITTER_SEARCH_RESULTS, data }
 }
 
-export const TWITTER_AUTH_ERROR = "TWITTER_ERROR";
-export const twitterAuthError = (data) => {
-    return { type: TWITTER_AUTH_ERROR, data }
+export const TWITTER_SEARCH_ERROR = "TWITTER_SEARCH_ERROR";
+export const twitterSearchError = (data) => {
+    return { type: TWITTER_SEARCH_ERROR, data }
 }
 
-export const TWITTER_AUTH = "TWITTER_AUTH";
-export const twitterAuth = (userName) => {
+export const TWITTER_SEARCH = "TWITTER_SEARCH";
+export const twitterSearch = (userName) => {
     return dispatch => {
-        dispatch(twitterAuthStart(userName));
-        axios.get(`/api/twitter-auth?userName=${userName}`)
-            .then(res => dispatch(twitterAuthResults(JSON.stringify(res.data))))
-            .catch(err => dispatch(twitterAuthError(err)))
+        dispatch(twitterSearchStart(userName));
+        axios.get(`/api/twitter-search?userName=${userName}`)
+            .then(res => dispatch(twitterSearchResults(JSON.stringify(res.data))))
+            .catch(err => dispatch(twitterSearchError(err)))
 
     }
 }
