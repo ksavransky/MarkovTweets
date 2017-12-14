@@ -24,7 +24,6 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
     "sequelize": "^4.27.0",
-    "twitter-node-client": "0.0.6",
     "yargs": "^10.0.3"
   },
   "engines": {
