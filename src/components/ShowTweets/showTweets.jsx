@@ -5,20 +5,32 @@ import './showTweets.css';
 
 class ShowTweets extends Component {
 
+constructor(props){
+  super(props)
+  this.state = {
+    tweetIds: null
+  }
+}
+
 
   componentWillReceiveProps(nextProps){
-console.log(this.props);
-console.log(nextProps);
-    if (!_.isEqual(this.props, nextProps)){
-
+    if (!_.isEqual(this.props, nextProps) && this.props.searchResults !== '[]'){
+      this.setState({
+        // tweetIds: nextProps.searchResults.match(/id_str(.*)text/)
+        tweetIds: nextProps.searchResults.split('","text"')
+            .map(str => str.slice(-25).match(/[0-9]+/)).filter(el => el !== null ).map(ary => ary[0])
+      })
     }
   }
 
-  displayTweet(tweetId){
-    // <TweetEmbed id='832671149704114176' options={{conversation: 'none' }} />
+  getEmbeddedTweet(tweetId){
+    // <TweetEmbed id='"940554567414091776"' options={{conversation: 'none' }} />
     // <TweetEmbed id={tweetId} options={{conversation: 'none' }} />
   }
+
   render() {
+    console.log('this.state.tweetIds');
+    console.log(this.state.tweetIds);
     if (this.props.searchResults === '[]') {
         return (
           <div id='show-tweets' className='results'>
