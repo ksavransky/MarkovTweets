@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import TweetEmbed from 'react-tweet-embed'
+import TweetEmbed from 'react-tweet-embed'
 import _ from 'lodash'
 import './showTweets.css';
 
