@@ -35,8 +35,7 @@
   "devDependencies": {
     "chalk": "^2.3.0",
     "path": "^0.12.7",
-    "react-dev-utils": "^4.2.1",
-    "disableHostCheck": true
+    "react-dev-utils": "^4.2.1"
   },
   "proxy": "http://localhost:8000"
 }
