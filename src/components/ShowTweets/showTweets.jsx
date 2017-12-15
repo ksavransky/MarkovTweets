@@ -13,16 +13,15 @@ class ShowTweets extends Component {
     }
   }
 
-
   componentWillReceiveProps(nextProps){
     if (!_.isEqual(this.props, nextProps) && this.props.searchResults !== '[]'){
       let resultTweetArray = this.parseSearchResultForTweetIds(nextProps.searchResults)
-      let tweetIds = {}
+      let tweetIdsObj = {}
       resultTweetArray.forEach((tweetId, index) => {
-        tweetIds[index + 1] = tweetId
+        tweetIdsObj[index + 1] = tweetId
       })
       this.setState({
-        tweetIds: tweetIds,
+        tweetIds: tweetIdsObj,
         numberOfTweets: resultTweetArray.length
       })
     }
@@ -35,28 +34,25 @@ class ShowTweets extends Component {
     .map(ary => ary[0])
   }
 
-  createTweetDisplay(tweetId, index){
-    // <TweetEmbed id='940554567414091776' options={{conversation: 'none' }}></TweetEmbed>
-  }
-
   render() {
     console.log('this.state');
     console.log(this.state);
-    if (this.props.searchResults === '[]') {
+    if (this.state.tweetIds === null) {
+        return (
+          ''
+        );
+    } else if (this.props.searchResults === '[]') {
         return (
           <div id='show-tweets' className='results'>
             'No Tweets Found. Please Search Again.'
           </div>
         );
-    } else if (this.state.tweetIds === null) {
-        return (
-          ''
-        );
     } else {
+      let tweetsKeys = Object.keys(this.state.tweetIds);
       return (
         <div id='show-tweets' className='results'>
-          <ShowTweet tweet={this.state.tweetIds[0]} />
-          {this.props.searchResults}
+          {tweetsKeys.map(key => <ShowTweet key={key} tweetId={this.state.tweetIds[key]} tweetIndex={key}/>)}
+          <div>{this.props.searchResults}</div>
         </div>
       )
     }

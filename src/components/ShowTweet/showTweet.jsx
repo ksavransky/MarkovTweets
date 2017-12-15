@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import TweetEmbed from 'react-tweet-embed'
+import { Tweet } from 'react-twitter-widgets'
 import _ from 'lodash'
 import './showTweet.css';
 
-const ShowTweet = ({tweet}) => {
-
+const ShowTweet = ({tweetId, tweetIndex}) => {
   return (
-    <div>HIERAASFASGASGAS</div>
+    <div key={tweetIndex} className='tweet-container'>
+        <label className='tweet-number-label'>{tweetIndex}</label>
+        <Tweet tweetId={tweetId} options={{conversation: 'none' }}/>
+    </div>
   )
-
 }
 
 export default ShowTweet;
