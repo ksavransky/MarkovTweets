@@ -1,22 +1,29 @@
 import React, { Component } from 'react';
-import TweetEmbed from 'react-tweet-embed'
 import _ from 'lodash'
 import './showTweets.css';
+import ShowTweet from '../ShowTweet/showTweet.jsx'
 
 class ShowTweets extends Component {
 
   constructor(props){
     super(props)
     this.state = {
-      tweetIds: null
+      tweetIds: null,
+      numberOfTweets: 0
     }
   }
 
 
   componentWillReceiveProps(nextProps){
     if (!_.isEqual(this.props, nextProps) && this.props.searchResults !== '[]'){
+      let resultTweetArray = this.parseSearchResultForTweetIds(nextProps.searchResults)
+      let tweetIds = {}
+      resultTweetArray.forEach((tweetId, index) => {
+        tweetIds[index + 1] = tweetId
+      })
       this.setState({
-        tweetIds: this.parseSearchResultForTweetIds(nextProps.searchResults)
+        tweetIds: tweetIds,
+        numberOfTweets: resultTweetArray.length
       })
     }
   }
@@ -28,28 +35,31 @@ class ShowTweets extends Component {
     .map(ary => ary[0])
   }
 
-  getEmbeddedTweet(tweetId){
-    // <TweetEmbed id='"940554567414091776"' options={{conversation: 'none' }} />
-    // <TweetEmbed id={tweetId} options={{conversation: 'none' }} />
+  createTweetDisplay(tweetId, index){
+    // <TweetEmbed id='940554567414091776' options={{conversation: 'none' }}></TweetEmbed>
   }
 
   render() {
-    console.log('this.state.tweetIds');
-    console.log(this.state.tweetIds);
+    console.log('this.state');
+    console.log(this.state);
     if (this.props.searchResults === '[]') {
         return (
           <div id='show-tweets' className='results'>
             'No Tweets Found. Please Search Again.'
           </div>
         );
+    } else if (this.state.tweetIds === null) {
+        return (
+          ''
+        );
     } else {
       return (
         <div id='show-tweets' className='results'>
+          <ShowTweet tweet={this.state.tweetIds[0]} />
           {this.props.searchResults}
         </div>
-      );
+      )
     }
-
   }
 }
 
