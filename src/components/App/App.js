@@ -24,8 +24,6 @@ class App extends Component {
   }
 
   render() {
-    console.log('in App.js this.props.searchResults');
-    console.log(this.props.searchResults);
     return (
       <div id='app'>
         <div id="app-header">

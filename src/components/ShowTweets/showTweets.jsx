@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import _ from 'lodash'
-import './showTweets.css';
 import ShowTweet from '../ShowTweet/showTweet.jsx'
+import MarkovChainMaker from '../MarkovChainMaker/markovChainMaker.jsx'
+import './showTweets.css';
 
 class ShowTweets extends Component {
 
@@ -9,8 +10,10 @@ class ShowTweets extends Component {
     super(props)
     this.state = {
       tweetIds: null,
-      numberOfTweets: 0
+      numberOfTweets: 0,
+      markovOrderTweetKeys: false
     }
+    this.setMarkovOrder = this.setMarkovOrder.bind(this)
   }
 
   componentWillReceiveProps(nextProps){
@@ -32,7 +35,13 @@ class ShowTweets extends Component {
       return []
     }
     return result.match(/"id_str":"(\d+)","text":"(?!RT)/g).map(str => str.replace(/\D/g,'')).slice(0, 10)
-    // <div>{this.props.searchResults}</div>
+  }
+
+  setMarkovOrder(markovOrderArray){
+      // ["1", "2", "3", "4", "5", "6", "7"]
+      this.setState({
+        markovOrderTweetKeys: markovOrderArray
+      })
   }
 
   render() {
@@ -58,9 +67,11 @@ class ShowTweets extends Component {
           </div>
           <div id='configure-markov-chain' className='main-section'>
             <h5>Configure <a rel="noopener noreferrer" target='_blank' href='https://en.wikipedia.org/wiki/Markov_chain'>Markov Chain</a></h5>
+            <MarkovChainMaker setMarkovOrder={this.setMarkovOrder} tweetIds={this.state.tweetIds} numberOfTweets={this.state.numberOfTweets} />
           </div>
           <div id='markov-chain-results' className='main-section'>
             <h5>Markov Chain</h5>
+              {this.state.markovOrderTweetKeys ? this.state.markovOrderTweetKeys.map(key => <ShowTweet key={key} tweetId={this.state.tweetIds[key]} tweetIndex={key}/>) : ''}
           </div>
         </div>
       )
