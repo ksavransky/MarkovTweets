@@ -51,12 +51,38 @@ class MarkovChainMaker extends Component {
     this.props.setMarkovOrder(chain)
   }
 
+  setStartingLink(){
+    let newStartingLinkValue = parseInt(this.refs.startingLinkDropDown.value)
+    if (newStartingLinkValue !== this.state.startingLink) {
+      this.setState({
+        startingLink: newStartingLinkValue
+      })
+    }
+  }
+
+  getStartingLinkDropDown(numberOfTweets) {
+    let numberArray = [];
+    for (let i = 1; i <= numberOfTweets; i++){
+      numberArray.push(i);
+    }
+
+    return (
+      <div className='first-link-container'>
+        <h6>Starting Link</h6>
+        <select onChange={this.setStartingLink.bind(this)} ref='startingLinkDropDown'>
+          {numberArray.map(key => <option key={key} selected={this.state.startingLink === key ? 'selected' : '' } value={key}>Tweet {key}</option>)}
+        </select>
+      </div>
+    )
+  }
+
   render() {
     console.log('this.state markovChainMaker');
     console.log(this.state);
     return (
       <div id='config-container'>
         <button className='button create-chain' onClick={this.createChain.bind(this)}>Create Chain</button>
+        {this.getStartingLinkDropDown(this.props.numberOfTweets)}
       </div>
     );
   }
