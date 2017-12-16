@@ -51,10 +51,16 @@ class ShowTweets extends Component {
     } else {
       let tweetsKeys = Object.keys(this.state.tweetIds);
       return (
-        <div id='main-container'>
-          <div id='show-tweets' className='results'>
+        <div id='main-container' className='main-container grid-x'>
+          <div id='show-tweets' className='results main-section'>
             <h5>Latest Ten Tweets</h5>
             {tweetsKeys.map(key => <ShowTweet key={key} tweetId={this.state.tweetIds[key]} tweetIndex={key}/>)}
+          </div>
+          <div id='configure-markov-chain' className='main-section'>
+            <h5>Configure Markov Chain</h5>
+          </div>
+          <div id='markov-chain-results' className='main-section'>
+            <h5>Markov Chain</h5>
           </div>
         </div>
       )

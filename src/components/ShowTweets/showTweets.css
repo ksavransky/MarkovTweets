@@ -1,10 +1,14 @@
-#show-tweets {
-  width: 350px;
-  margin: 20px;
+#main-container {
+  justify-content: center;
 }
 
 #show-tweets.results.none {
   width: 100%;
   margin: auto;
   color: red;
+}
+
+.main-section {
+  width: 350px;
+  margin: 20px;
 }
