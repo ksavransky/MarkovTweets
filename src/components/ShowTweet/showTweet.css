@@ -1,7 +1,6 @@
 .tweet-container {
   width: 350px;
   position: relative;
-  margin: 20px;
 }
 
 .tweet-container .tweet-number-label {

@@ -32,6 +32,7 @@ class ShowTweets extends Component {
       return []
     }
     return result.match(/"id_str":"(\d+)","text":"(?!RT)/g).map(str => str.replace(/\D/g,'')).slice(0, 10)
+    // <div>{this.props.searchResults}</div>
   }
 
   render() {
@@ -51,8 +52,8 @@ class ShowTweets extends Component {
       let tweetsKeys = Object.keys(this.state.tweetIds);
       return (
         <div id='show-tweets' className='results'>
+          <h5>Latest Ten Tweets</h5>
           {tweetsKeys.map(key => <ShowTweet key={key} tweetId={this.state.tweetIds[key]} tweetIndex={key}/>)}
-          <div>{this.props.searchResults}</div>
         </div>
       )
     }

@@ -21,6 +21,7 @@ class App extends Component {
   
   getTweets(){
     this.props.actions.twitterSearch(this.refs.search.value === '' ? NOT_REAL_USER : this.refs.search.value)
+    // <h5>The Lastest Ten Available Tweets Will Be Displayed Below In A <a rel="noopener noreferrer" target='_blank' href='https://en.wikipedia.org/wiki/Markov_chain'>Markov Chain</a></h5>
   }
 
   render() {
@@ -37,7 +38,6 @@ class App extends Component {
           <input ref='search' type="search" placeholder='Search...' className='search cell small-6'/>
           <button className='button' onClick={this.getTweets.bind(this)}>Search</button>
         </div>
-        <h5>The Lastest Ten Available Tweets Will Be Displayed Below In A <a rel="noopener noreferrer" target='_blank' href='https://en.wikipedia.org/wiki/Markov_chain'>Markov Chain</a></h5>
         <ShowTweets searchResults={this.props.searchResults}/>
         </div>
       </div>
