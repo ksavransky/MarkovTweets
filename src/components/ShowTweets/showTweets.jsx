@@ -25,7 +25,8 @@ class ShowTweets extends Component {
       })
       this.setState({
         tweetIds: tweetIdsObj,
-        numberOfTweets: resultTweetArray.length
+        numberOfTweets: resultTweetArray.length,
+        markovOrderTweetKeys: false
       })
     }
   }
@@ -71,7 +72,7 @@ class ShowTweets extends Component {
           </div>
           <div id='markov-chain-results' className='main-section'>
             <h5>Markov Chain</h5>
-              {this.state.markovOrderTweetKeys ? this.state.markovOrderTweetKeys.map(key => <ShowTweet key={key} tweetId={this.state.tweetIds[key]} tweetIndex={key}/>) : ''}
+              {this.state.markovOrderTweetKeys ? this.state.markovOrderTweetKeys.map((key, index) => <ShowTweet key={index} tweetId={this.state.tweetIds[key]} tweetIndex={key}/>) : ''}
           </div>
         </div>
       )
