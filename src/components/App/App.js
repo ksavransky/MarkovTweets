@@ -32,7 +32,7 @@ class App extends Component {
         <div id="app-header">
           <h2>Markov Chain Tweets</h2>
         </div>
-        <div className='search-area'>
+        <div className='page'>
         <h4>Search For A Twitter User To See Their Tweets</h4>
         <div className='search-container grid-container grid-x align-center'>
           <input ref='search' type="search" placeholder='Search...' className='search cell small-6'/>

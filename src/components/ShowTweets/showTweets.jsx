@@ -42,18 +42,20 @@ class ShowTweets extends Component {
         return (
           ''
         );
-    } else if (this.props.searchResults === '[]') {
+    } else if (this.props.searchResults === '[]' || this.state.numberOfTweets === 0) {
         return (
-          <div id='show-tweets' className='results'>
-            'No Tweets Found. Please Search Again.'
+          <div id='show-tweets' className='results none'>
+            No Tweets Found. Please Search Again.
           </div>
         );
     } else {
       let tweetsKeys = Object.keys(this.state.tweetIds);
       return (
-        <div id='show-tweets' className='results'>
-          <h5>Latest Ten Tweets</h5>
-          {tweetsKeys.map(key => <ShowTweet key={key} tweetId={this.state.tweetIds[key]} tweetIndex={key}/>)}
+        <div id='main-container'>
+          <div id='show-tweets' className='results'>
+            <h5>Latest Ten Tweets</h5>
+            {tweetsKeys.map(key => <ShowTweet key={key} tweetId={this.state.tweetIds[key]} tweetIndex={key}/>)}
+          </div>
         </div>
       )
     }

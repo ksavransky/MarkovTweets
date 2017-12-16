@@ -2,3 +2,9 @@
   width: 350px;
   margin: 20px;
 }
+
+#show-tweets.results.none {
+  width: 100%;
+  margin: auto;
+  color: red;
+}
