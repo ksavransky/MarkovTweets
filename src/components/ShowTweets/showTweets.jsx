@@ -28,10 +28,10 @@ class ShowTweets extends Component {
   }
 
   parseSearchResultForTweetIds(result){
-    return result.split('","text"')
-    .map(str => str.slice(-25).match(/[0-9]+/))
-    .filter(el => el !== null )
-    .map(ary => ary[0])
+    if (result === 'The User Does Not Exist. Please Search Again.') {
+      return []
+    }
+    return result.match(/"id_str":"(\d+)","text":"(?!RT)/g).map(str => str.replace(/\D/g,'')).slice(0, 10)
   }
 
   render() {
