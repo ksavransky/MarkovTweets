@@ -57,7 +57,7 @@ class ShowTweets extends Component {
             {tweetsKeys.map(key => <ShowTweet key={key} tweetId={this.state.tweetIds[key]} tweetIndex={key}/>)}
           </div>
           <div id='configure-markov-chain' className='main-section'>
-            <h5>Configure Markov Chain</h5>
+            <h5>Configure <a rel="noopener noreferrer" target='_blank' href='https://en.wikipedia.org/wiki/Markov_chain'>Markov Chain</a></h5>
           </div>
           <div id='markov-chain-results' className='main-section'>
             <h5>Markov Chain</h5>

@@ -21,7 +21,6 @@ class App extends Component {
   
   getTweets(){
     this.props.actions.twitterSearch(this.refs.search.value === '' ? NOT_REAL_USER : this.refs.search.value)
-    // <h5>The Lastest Ten Available Tweets Will Be Displayed Below In A <a rel="noopener noreferrer" target='_blank' href='https://en.wikipedia.org/wiki/Markov_chain'>Markov Chain</a></h5>
   }
 
   render() {
