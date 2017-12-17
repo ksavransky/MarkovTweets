@@ -12,7 +12,8 @@ class ShowTweets extends Component {
     this.state = {
       tweetIds: null,
       numberOfTweets: 0,
-      markovOrderTweetKeys: false
+      markovOrderTweetKeys: false,
+      combinedText: ''
     }
     this.setMarkovOrder = this.setMarkovOrder.bind(this)
   }
@@ -24,19 +25,36 @@ class ShowTweets extends Component {
       resultTweetArray.forEach((tweetId, index) => {
         tweetIdsObj[index + 1] = tweetId
       })
+      let combinedText = this.combineAllSearchText(nextProps.searchResults)
       this.setState({
         tweetIds: tweetIdsObj,
         numberOfTweets: resultTweetArray.length,
-        markovOrderTweetKeys: false
+        markovOrderTweetKeys: false,
+        combinedText: combinedText
       })
     }
+  }
+
+  combineAllSearchText(result){ 
+    if (result === 'The User Does Not Exist. Please Search Again.') {
+      return ''
+    }
+    let allText = ''
+    _.forEach(JSON.parse(result), tweetObj => {
+      allText += (tweetObj.text + ' ')
+    })
+    return allText.replace(/(?:https):\/\/[\n\S]+/g, '')
   }
 
   parseSearchResultForTweetIds(result){
     if (result === 'The User Does Not Exist. Please Search Again.') {
       return []
     }
-    return result.match(/"id_str":"(\d+)","text":"(?!RT)/g).map(str => str.replace(/\D/g,'')).slice(0, 10)
+    let tweetIds = []
+    _.forEach(JSON.parse(result), tweetObj => {
+      tweetIds.push(tweetObj['id_str'])
+    })
+    return tweetIds
   }
 
   setMarkovOrder(markovOrderArray){
@@ -68,10 +86,10 @@ class ShowTweets extends Component {
             <h5>Generate Tweet</h5>
             <div className='divider top'></div>
             <h6>Generate a tweet based on a <a rel="noopener noreferrer" target='_blank' href='https://en.wikipedia.org/wiki/Markov_chain'>Markov Chain</a>, using the text of the lastest ten tweets.</h6>
-            <PhraseMaker />
+            <PhraseMaker combinedText={this.state.combinedText}/>
           </div>
           <div id='configure-markov-chain' className='main-section'>
-            <h5 className='configure-title'>Configure Tweets Order <h6 className='configure-subtitle'>Based on a <a rel="noopener noreferrer" target='_blank' href='https://en.wikipedia.org/wiki/Markov_chain'>Markov Chain</a></h6></h5>
+            <h5 className='configure-title'>Configure Tweets Order <div className='configure-subtitle'>Based on a <a rel="noopener noreferrer" target='_blank' href='https://en.wikipedia.org/wiki/Markov_chain'>Markov Chain</a></div></h5>
             <MarkovChainMaker setMarkovOrder={this.setMarkovOrder} numberOfTweets={this.state.numberOfTweets} />
           </div>
           <div id='markov-chain-results' className='main-section'>

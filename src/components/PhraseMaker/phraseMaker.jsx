@@ -19,6 +19,8 @@ class PhraseMaker extends Component{
   }
    
  render(){
+    console.log('this.props.combinedText');
+    console.log(this.props.combinedText);
     return (
       <div className='phrase-maker-container'>
 hi
