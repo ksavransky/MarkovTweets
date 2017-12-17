@@ -1,8 +1,10 @@
 const api = module.exports = require('express').Router()
 
 var Twitter = require('twitter-node-client').Twitter;
-var MarkovChain = require('markovchain');
+// var MarkovChain = require('markovchain');
 
+var MarkovChain = require('markovchain-generate');
+ 
 function twitterSearch(req, res){
   const config = {
       "consumerKey": "PiRcOvzzbivfKnwfU67DPui31",
@@ -32,18 +34,25 @@ function generatePhrase(req, res){
     res.status(200).send(phrase);
   };
   
-  var chain = new MarkovChain(req.query.text);
-  console.log('chain')
-  console.log(chain)
+  // For an empty chain, use an empty constructor. 
+  var chain = new MarkovChain()
+   
+  // Get a string of text and feed it into the markov chain generator. 
+  chain.generateChain(req.query.text);
+  var phrase = chain.generateString()
   
-  var useUpperCase = function(wordList) {
-    var tmpList = Object.keys(wordList).filter(function(word) {
-      return word[0] >= 'A' && word[0] <= 'Z'
-    })
-    return tmpList[~~(Math.random()*tmpList.length)]
-  }
-  
-  var phrase = chain.start(useUpperCase).process();
+  // var chain = new MarkovChain(req.query.text);
+  // console.log('chain')
+  // console.log(chain)
+  // 
+  // var useUpperCase = function(wordList) {
+  //   var tmpList = Object.keys(wordList).filter(function(word) {
+  //     return word[0] >= 'A' && word[0] <= 'Z'
+  //   })
+  //   return tmpList[~~(Math.random()*tmpList.length)]
+  // }
+  // 
+  // var phrase = chain.start(useUpperCase).process();
   
   console.log('phrase')
   console.log(phrase)
