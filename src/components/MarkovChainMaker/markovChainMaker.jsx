@@ -12,7 +12,9 @@ class MarkovChainMaker extends Component {
       probabilities: null,
       startingLink: 1,
       tweetIdArray: null,
-      currentConfigLink: 1
+      currentConfigLink: 1,
+      saveMessage: '',
+      saveError: false
     }
     this.setInitialProbabilities = this.setInitialProbabilities.bind(this)
     this.getStartingLinkDropDown = this.getStartingLinkDropDown.bind(this)
@@ -120,7 +122,23 @@ class MarkovChainMaker extends Component {
   }
 
   saveProbabilities(){
-
+    console.log('in saveProbabilities');
+    console.log(this.refs.probabilityInputs.getElementsByTagName('input'))
+    let probabilitiesSum = 0;
+    _.forEach(this.refs.probabilityInputs.getElementsByTagName('input'), input => {
+      probabilitiesSum += parseInt(input.value)
+    })
+    if (probabilitiesSum > this.state.tweetIdArray.length) {
+      this.setState({
+        saveMessage: 'Probabilities must sum to ' + this.state.tweetIdArray.length + '. Please change input values accordingly.',
+        saveError: true
+      })
+    } else {
+      this.setState({
+        saveMessage: 'Saved Changes for Link ' + this.state.currentConfigLink + '.',
+        saveError: false
+      })
+    }
   }
 
   render() {
@@ -132,6 +150,7 @@ class MarkovChainMaker extends Component {
         <button className='button create-chain' onClick={this.createChain.bind(this)}>Create Chain</button>
         {this.getProbabiltyForm()}
         <button className='button save-probabilities' onClick={this.saveProbabilities.bind(this)}>Save</button>
+        <h6 className='save-message' style={{color: this.state.saveError ? 'red' : 'green' }}>{this.state.saveMessage}</h6>
       </div>
     );
   }
