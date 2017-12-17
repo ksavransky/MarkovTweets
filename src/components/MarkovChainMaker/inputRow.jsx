@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import _ from 'lodash'
 import './inputRow.css';
 
-const InputRow = ({tweetId, probabilitiesArray}) => {
-  let probabilityForTweet = probabilitiesArray.filter(id => id == tweetId).length
+const InputRow = ({nextTweetId, probabilityArrayAtCurrentLink}) => {
+  let probabilityForNextTweet = probabilityArrayAtCurrentLink.filter(id => id == nextTweetId).length
   return (
     <div className='probability-input-box'>
-      <h6>Tweet {tweetId}</h6>
-      <input value={probabilityForTweet}/>
-      <h6>{'/' + probabilitiesArray.length}</h6>
+      <h6>Tweet {nextTweetId}</h6>
+      <input value={probabilityForNextTweet}/>
+      <h6>{'/' + probabilityArrayAtCurrentLink.length}</h6>
     </div>
   )
 }
