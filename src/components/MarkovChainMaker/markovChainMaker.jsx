@@ -154,8 +154,6 @@ class MarkovChainMaker extends Component {
   }
 
   render() {
-    console.log('this.state markovChainMaker');
-    console.log(this.state);
     return (
       <div id='config-container'>
         {this.getStartingLinkDropDown(this.props.numberOfTweets)}

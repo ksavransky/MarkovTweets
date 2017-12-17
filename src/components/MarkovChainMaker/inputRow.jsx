@@ -9,6 +9,14 @@ class InputRow extends Component{
         value: this.props.probabilityArrayAtCurrentLink.filter(id => id == this.props.nextTweetId).length
       }
    }
+
+  componentWillReceiveProps(nextProps){
+    if (!_.isEqual(this.props, nextProps)){
+      this.setState({
+        value: nextProps.probabilityArrayAtCurrentLink.filter(id => id == this.props.nextTweetId).length
+      })
+    }
+  }
    
    onChange(e){
       const re = /^[0-9\b]+$/;
