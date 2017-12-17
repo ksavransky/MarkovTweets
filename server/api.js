@@ -31,10 +31,20 @@ function generatePhrase(req, res){
     // console.log('Data [%s]', data);
     res.status(200).send(phrase);
   };
+  
   var chain = new MarkovChain(req.query.text);
   console.log('chain')
   console.log(chain)
-  var phrase = chain.start('The').process();
+  
+  var useUpperCase = function(wordList) {
+    var tmpList = Object.keys(wordList).filter(function(word) {
+      return word[0] >= 'A' && word[0] <= 'Z'
+    })
+    return tmpList[~~(Math.random()*tmpList.length)]
+  }
+  
+  var phrase = chain.start(useUpperCase).process();
+  
   console.log('phrase')
   console.log(phrase)
   success(phrase);
