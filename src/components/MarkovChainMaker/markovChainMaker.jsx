@@ -121,22 +121,34 @@ class MarkovChainMaker extends Component {
     )
   }
 
+  getArraySum(total, num) {
+      return total + num;
+  }
+
   saveProbabilities(){
-    console.log('in saveProbabilities');
-    console.log(this.refs.probabilityInputs.getElementsByTagName('input'))
-    let probabilitiesSum = 0;
+    let probabilityArray = []
     _.forEach(this.refs.probabilityInputs.getElementsByTagName('input'), input => {
-      probabilitiesSum += parseInt(input.value)
+      probabilityArray.push(parseInt(input.value))
     })
-    if (probabilitiesSum > this.state.tweetIdArray.length) {
+    let probabilitiesSum = probabilityArray.reduce(this.getArraySum);
+    if (probabilitiesSum !== this.state.tweetIdArray.length) {
       this.setState({
         saveMessage: 'Probabilities must sum to ' + this.state.tweetIdArray.length + '. Please change input values accordingly.',
         saveError: true
       })
     } else {
+      let probabilityArrayNormalized = []
+      probabilityArray.forEach((num, index) => {
+        for (let i = 0; i < num; i++){
+          probabilityArrayNormalized.push(index + 1)
+        }
+      })
+      let probabilitiesObj = _.clone(this.state.probabilities)
+      probabilitiesObj[this.state.currentConfigLink] = probabilityArrayNormalized
       this.setState({
         saveMessage: 'Saved Changes for Link ' + this.state.currentConfigLink + '.',
-        saveError: false
+        saveError: false,
+        probabilities: probabilitiesObj
       })
     }
   }
