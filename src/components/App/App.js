@@ -35,7 +35,7 @@ class App extends Component {
           <input ref='search' type="search" placeholder='Search...' className='search cell small-6'/>
           <button className='button' onClick={this.getTweets.bind(this)}>Search</button>
         </div>
-        <ShowTweets searchResults={this.props.searchResults}/>
+        <ShowTweets actions={this.props.actions} searchResults={this.props.searchResults}/>
         </div>
       </div>
     );

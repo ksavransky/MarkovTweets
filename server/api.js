@@ -1,6 +1,7 @@
 const api = module.exports = require('express').Router()
 
 var Twitter = require('twitter-node-client').Twitter;
+var MarkovChain = require('markovchain');
 
 function twitterSearch(req, res){
   const config = {
@@ -23,8 +24,25 @@ function twitterSearch(req, res){
   twitter.getUserTimeline({ screen_name: req.query.userName, count: '10'}, error, success);
 }
 
+function generatePhrase(req, res){
+  console.log('in generatePhrase');
+  console.log(req.query.text)
+  var success = function (phrase) {
+    // console.log('Data [%s]', data);
+    res.status(200).send(phrase);
+  };
+  var chain = new MarkovChain(req.query.text);
+  console.log('chain')
+  console.log(chain)
+  var phrase = chain.start('The').process();
+  console.log('phrase')
+  console.log(phrase)
+  success(phrase);
+}
+
 api
   .get('/twitter-search', twitterSearch) 
+  .get('/generate-phrase', generatePhrase) 
 // No routes matched? 404.
 api.use((req, res) => res.status(404).end())
 

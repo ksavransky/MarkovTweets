@@ -86,7 +86,7 @@ class ShowTweets extends Component {
             <h5>Generate Tweet</h5>
             <div className='divider top'></div>
             <h6>Generate a tweet based on a <a rel="noopener noreferrer" target='_blank' href='https://en.wikipedia.org/wiki/Markov_chain'>Markov Chain</a>, using the text of the lastest ten tweets.</h6>
-            <PhraseMaker combinedText={this.state.combinedText}/>
+            <PhraseMaker actions={this.props.actions} combinedText={this.state.combinedText} />
           </div>
           <div id='configure-markov-chain' className='main-section'>
             <h5 className='configure-title'>Configure Tweets Order <div className='configure-subtitle'>Based on a <a rel="noopener noreferrer" target='_blank' href='https://en.wikipedia.org/wiki/Markov_chain'>Markov Chain</a></div></h5>

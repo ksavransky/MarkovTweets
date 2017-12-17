@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import _ from 'lodash'
 import './phraseMaker.css';
 
@@ -6,27 +7,37 @@ class PhraseMaker extends Component{
    constructor(props){
       super(props);
       this.state = {
-        value: ''
+        generatedTweet: ''
       }
    }
 
+  componentDidMount(){
+    this.props.actions.generatePhrase(this.props.combinedText);
+  }
+
   componentWillReceiveProps(nextProps){
     if (!_.isEqual(this.props, nextProps)){
-      // this.setState({
-      //   value: ''
-      // })
+      this.state = {
+        generatedTweet: nextProps.phraseResults
+      }
     }
   }
    
  render(){
-    console.log('this.props.combinedText');
-    console.log(this.props.combinedText);
     return (
       <div className='phrase-maker-container'>
-hi
+        {this.state.generatedTweet}
       </div>
     )
  }
 }
 
-export default PhraseMaker;
+function mapStateToProps(state) {
+  return {
+    phraseResults: state.main.phraseResults
+  }
+}
+
+export default connect(
+  mapStateToProps
+)(PhraseMaker)
