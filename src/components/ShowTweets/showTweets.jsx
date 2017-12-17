@@ -45,8 +45,6 @@ class ShowTweets extends Component {
   }
 
   render() {
-    console.log('this.state');
-    console.log(this.state);
     if (this.state.tweetIds === null) {
         return (
           ''
