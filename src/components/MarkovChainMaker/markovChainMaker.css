@@ -3,8 +3,15 @@
 }
 
 #configure-markov-chain .button {
-  width: 200px;
+  width: 170px;
   margin: 20px 0px;
+  background: #0e9c0e;
+}
+
+#configure-markov-chain .button:hover {
+  background: green;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
 }
 
 #configure-markov-chain .input-pair {
