@@ -17,6 +17,8 @@
 #configure-markov-chain .input-pair {
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 #configure-markov-chain .input-pair select {
@@ -24,7 +26,6 @@
 }
 
 #configure-markov-chain h6 {
-  margin-right: 20px;
   line-height: 2.5;
 }
 
@@ -44,5 +45,13 @@
 
 .save-message {
   line-height: 1.1 !important;
+}
+
+.probability-input-box h6, .probability-labels h6 {
+  margin-right: 20px;
+}
+
+.starting-link {
+  padding: 0px 0px 20px 0px !important;
 }
 

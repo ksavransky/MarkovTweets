@@ -9,6 +9,14 @@
 }
 
 .main-section {
-  width: 350px;
+  width: 290px;
   margin: 20px;
+}
+
+.configure-subtitle {
+  line-height: 1.4 !important;
+}
+
+.configure-title {
+  padding-bottom: 0px !important;
 }
