@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import InputRow from './inputRow.jsx'
 import _ from 'lodash'
 import './markovChainMaker.css';
+
 
 class MarkovChainMaker extends Component {
 
@@ -9,7 +11,7 @@ class MarkovChainMaker extends Component {
     this.state = {
       probabilities: null,
       startingLink: 1,
-      optionsArray: null,
+      tweetIdArray: null,
       probabilityLink: 1
     }
     this.setInitialProbabilities = this.setInitialProbabilities.bind(this)
@@ -34,16 +36,16 @@ class MarkovChainMaker extends Component {
 
   setInitialProbabilities(nextProps){
     let { numberOfTweets } = nextProps || this.props
-    let numberArray = [];
+    let tweetIdArray = [];
     for (let i = 1; i <= numberOfTweets; i++){
-        numberArray.push(i);
+        tweetIdArray.push(i);
     }
     this.setState({
-      optionsArray: numberArray
+      tweetIdArray: tweetIdArray
     })
     let probabilities = {}
     for (let j = 1; j <= numberOfTweets; j++) {
-      probabilities[j] = numberArray
+      probabilities[j] = tweetIdArray
     }
     return probabilities
   }
@@ -70,7 +72,12 @@ class MarkovChainMaker extends Component {
 
   getProbabiltyInputs(){
     return (
-      <div className='probability-inputs-container'>
+      <div className='probability-inputs-container' ref='probabilityInputs'>
+          <div className='probability-labels'>
+            <h6>Next Tweet</h6>
+            <h6>Probability</h6>
+          </div>
+          {this.state.tweetIdArray ? this.state.tweetIdArray.map(key => <InputRow key={key} tweetId={key} probabilitiesArray={this.state.probabilities[key]} />) : ''}
       </div>
     );
   }
@@ -84,7 +91,7 @@ class MarkovChainMaker extends Component {
         <div className='input-pair'>
           <h6>Set Link</h6>
           <select onChange={this.setProbabilityLink.bind(this)} ref='probabilityLinkDropDown'>
-            {this.state.optionsArray ? this.state.optionsArray.map(key => <option key={key} selected={this.state.probabilityLink === key ? 'selected' : '' } value={key}>Tweet {key}</option>) : ''}
+            {this.state.tweetIdArray ? this.state.tweetIdArray.map(key => <option key={key} selected={this.state.probabilityLink === key ? 'selected' : '' } value={key}>Tweet {key}</option>) : ''}
           </select>
         </div>
         {this.getProbabiltyInputs()}
@@ -106,7 +113,7 @@ class MarkovChainMaker extends Component {
       <div className='input-pair'>
         <h6>Starting Link</h6>
         <select onChange={this.setStartingLink.bind(this)} ref='startingLinkDropDown'>
-          {this.state.optionsArray ? this.state.optionsArray.map(key => <option key={key} selected={this.state.startingLink === key ? 'selected' : '' } value={key}>Tweet {key}</option>) : ''}
+          {this.state.tweetIdArray ? this.state.tweetIdArray.map(key => <option key={key} selected={this.state.startingLink === key ? 'selected' : '' } value={key}>Tweet {key}</option>) : ''}
         </select>
       </div>
     )
