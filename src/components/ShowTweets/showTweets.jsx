@@ -39,7 +39,6 @@ class ShowTweets extends Component {
   }
 
   setMarkovOrder(markovOrderArray){
-      // ["1", "2", "3", "4", "5", "6", "7"]
       this.setState({
         markovOrderTweetKeys: markovOrderArray
       })

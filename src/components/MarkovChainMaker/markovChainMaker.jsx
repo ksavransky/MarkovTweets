@@ -8,9 +8,14 @@ class MarkovChainMaker extends Component {
     super(props)
     this.state = {
       probabilities: null,
-      startingLink: 1
+      startingLink: 1,
+      optionsArray: null,
+      probabilityLink: 1
     }
     this.setInitialProbabilities = this.setInitialProbabilities.bind(this)
+    this.getStartingLinkDropDown = this.getStartingLinkDropDown.bind(this)
+    this.getProbabiltyForm = this.getProbabiltyForm.bind(this)
+    this.getProbabiltyInputs = this.getProbabiltyInputs.bind(this)
   }
 
   componentDidMount(){
@@ -27,12 +32,15 @@ class MarkovChainMaker extends Component {
     }
   }
 
-  setInitialProbabilities (nextProps) {
+  setInitialProbabilities(nextProps){
     let { numberOfTweets } = nextProps || this.props
     let numberArray = [];
     for (let i = 1; i <= numberOfTweets; i++){
         numberArray.push(i);
     }
+    this.setState({
+      optionsArray: numberArray
+    })
     let probabilities = {}
     for (let j = 1; j <= numberOfTweets; j++) {
       probabilities[j] = numberArray
@@ -40,7 +48,7 @@ class MarkovChainMaker extends Component {
     return probabilities
   }
 
-  createChain () {
+  createChain(){
     let chain = [this.state.startingLink.toString()]
     let stepProbabilityArray = this.state.probabilities[this.state.startingLink]
     for (let i = 1; i < this.props.numberOfTweets; i++){
@@ -49,6 +57,39 @@ class MarkovChainMaker extends Component {
       stepProbabilityArray = this.state.probabilities[randTweetId]
     }
     this.props.setMarkovOrder(chain)
+  }
+
+  setProbabilityLink(){
+    let newProbabilityLinkValue = parseInt(this.refs.probabilityLinkDropDown.value)
+    if (newProbabilityLinkValue !== this.state.probabilityLink) {
+      this.setState({
+        probabilityLink: newProbabilityLinkValue
+      })
+    }
+  }
+
+  getProbabiltyInputs(){
+    return (
+      <div className='probability-inputs-container'>
+      </div>
+    );
+  }
+
+  getProbabiltyForm(){
+    return (
+      <div className='probability-form-container'>
+        <div className='divider'></div>
+        <h5 className='change-probabilities-label'>Change Probabilities</h5>
+        <div className='explanation'>Choose a link (i.e. tweet) and set probabilities for the which link will appear next.</div>
+        <div className='input-pair'>
+          <h6>Set Link</h6>
+          <select onChange={this.setProbabilityLink.bind(this)} ref='probabilityLinkDropDown'>
+            {this.state.optionsArray ? this.state.optionsArray.map(key => <option key={key} selected={this.state.probabilityLink === key ? 'selected' : '' } value={key}>Tweet {key}</option>) : ''}
+          </select>
+        </div>
+        {this.getProbabiltyInputs()}
+      </div>
+    )
   }
 
   setStartingLink(){
@@ -60,17 +101,12 @@ class MarkovChainMaker extends Component {
     }
   }
 
-  getStartingLinkDropDown(numberOfTweets) {
-    let numberArray = [];
-    for (let i = 1; i <= numberOfTweets; i++){
-      numberArray.push(i);
-    }
-
+  getStartingLinkDropDown(){
     return (
-      <div className='first-link-container'>
+      <div className='input-pair'>
         <h6>Starting Link</h6>
         <select onChange={this.setStartingLink.bind(this)} ref='startingLinkDropDown'>
-          {numberArray.map(key => <option key={key} selected={this.state.startingLink === key ? 'selected' : '' } value={key}>Tweet {key}</option>)}
+          {this.state.optionsArray ? this.state.optionsArray.map(key => <option key={key} selected={this.state.startingLink === key ? 'selected' : '' } value={key}>Tweet {key}</option>) : ''}
         </select>
       </div>
     )
@@ -83,6 +119,7 @@ class MarkovChainMaker extends Component {
       <div id='config-container'>
         <button className='button create-chain' onClick={this.createChain.bind(this)}>Create Chain</button>
         {this.getStartingLinkDropDown(this.props.numberOfTweets)}
+        {this.getProbabiltyForm()}
       </div>
     );
   }

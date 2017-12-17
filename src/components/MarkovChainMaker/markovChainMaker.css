@@ -8,3 +8,31 @@
   right: -60px;
 }
 
+#configure-markov-chain .input-pair {
+  display: flex;
+  justify-content: center;
+}
+
+#configure-markov-chain .input-pair select {
+  width: 220px;
+}
+
+#configure-markov-chain h6 {
+  margin-right: 20px;
+  line-height: 2.5;
+}
+
+.explanation {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.divider {
+  height: 1px;
+  background: #3e3e3e;
+}
+
+.change-probabilities-label {
+  padding: 15px 30px 10px 30px !important;
+}
+
