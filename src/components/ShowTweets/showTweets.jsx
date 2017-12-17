@@ -65,12 +65,13 @@ class ShowTweets extends Component {
             {tweetsKeys.map(key => <ShowTweet key={key} tweetId={this.state.tweetIds[key]} tweetIndex={key}/>)}
           </div>
           <div id='phrase-maker' className='main-section'>
-            <h5>Generate Individual <a rel="noopener noreferrer" target='_blank' href='https://en.wikipedia.org/wiki/Markov_chain'>Markov Chain</a> Tweet</h5>
-            <h6>Create a tweet based on the text of the lastest ten tweets.</h6>
+            <h5>Generate Tweet</h5>
+            <div className='divider top'></div>
+            <h6>Generate a tweet based on a <a rel="noopener noreferrer" target='_blank' href='https://en.wikipedia.org/wiki/Markov_chain'>Markov Chain</a>, using the text of the lastest ten tweets.</h6>
             <PhraseMaker />
           </div>
           <div id='configure-markov-chain' className='main-section'>
-            <h5 className='configure-title'>Configure Tweets Order <h6 className='configure-subtitle'>Based on a Custom Markov Chain</h6></h5>
+            <h5 className='configure-title'>Configure Tweets Order <h6 className='configure-subtitle'>Based on a <a rel="noopener noreferrer" target='_blank' href='https://en.wikipedia.org/wiki/Markov_chain'>Markov Chain</a></h6></h5>
             <MarkovChainMaker setMarkovOrder={this.setMarkovOrder} numberOfTweets={this.state.numberOfTweets} />
           </div>
           <div id='markov-chain-results' className='main-section'>

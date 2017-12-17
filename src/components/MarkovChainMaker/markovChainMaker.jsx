@@ -113,6 +113,7 @@ class MarkovChainMaker extends Component {
   getStartingLinkDropDown(){
     return (
       <div className='input-pair'>
+        <div className='divider top start'></div>
         <h5 className='starting-link'>Starting Link</h5>
         <select onChange={this.setStartingLink.bind(this)} ref='startingLinkDropDown'>
           {this.state.tweetIdArray ? this.state.tweetIdArray.map(key => <option key={key} selected={this.state.startingLink === key ? 'selected' : '' } value={key}>Tweet {key}</option>) : ''}
