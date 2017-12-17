@@ -2,10 +2,9 @@
   position: relative;
 }
 
-#configure-markov-chain .create-chain {
-  position: absolute;
-  top: 25px;
-  right: -60px;
+#configure-markov-chain .button {
+  width: 200px;
+  margin: 20px 0px;
 }
 
 #configure-markov-chain .input-pair {

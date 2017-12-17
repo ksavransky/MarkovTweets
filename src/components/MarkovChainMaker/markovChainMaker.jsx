@@ -86,7 +86,7 @@ class MarkovChainMaker extends Component {
     return (
       <div className='probability-form-container'>
         <div className='divider'></div>
-        <h5 className='change-probabilities-label'>Change Probabilities</h5>
+        <h5 className='change-probabilities-label'>Change Chain Probabilities</h5>
         <div className='explanation'>Choose a tweet (Markov link) and set probabilities for the tweet that will appear after the choosen tweet appears.</div>
         <div className='input-pair'>
           <h6>Set Link</h6>
@@ -128,8 +128,8 @@ class MarkovChainMaker extends Component {
     console.log(this.state);
     return (
       <div id='config-container'>
-        <button className='button create-chain' onClick={this.createChain.bind(this)}>Create Chain</button>
         {this.getStartingLinkDropDown(this.props.numberOfTweets)}
+        <button className='button create-chain' onClick={this.createChain.bind(this)}>Create Chain</button>
         {this.getProbabiltyForm()}
         <button className='button save-probabilities' onClick={this.saveProbabilities.bind(this)}>Save</button>
       </div>
