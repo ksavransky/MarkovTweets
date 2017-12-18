@@ -17,9 +17,9 @@ class PhraseMaker extends Component{
 
   componentWillReceiveProps(nextProps){
     if (!_.isEqual(this.props, nextProps)){
-      this.state = {
+      this.setState({
         generatedTweet: nextProps.phraseResults
-      }
+      })
     }
   }
    
