@@ -4,6 +4,12 @@ import ShowTweets from '../ShowTweets/showTweets.jsx'
 import './app.css';
 
 class App extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      user: ''
+    }
+  }
   
   componentDidMount(){
     document.addEventListener('keydown', this.enterSubmit.bind(this))
@@ -32,10 +38,10 @@ class App extends Component {
         <div className='page'>
         <h4>Search For A Twitter User To See Their Tweets</h4>
         <div className='search-container grid-container grid-x align-center'>
-          <input ref='search' type="search" placeholder='Search...' className='search cell small-6'/>
+          <input id='search-input' ref='search' type="search" placeholder='Search...' className='search cell small-6'/>
           <button className='button' onClick={this.getTweets.bind(this)}>Search</button>
         </div>
-        <ShowTweets actions={this.props.actions} searchResults={this.props.searchResults}/>
+        <ShowTweets actions={this.props.actions} searchResults={this.props.searchResults} user={this.state.user}/>
         </div>
       </div>
     );

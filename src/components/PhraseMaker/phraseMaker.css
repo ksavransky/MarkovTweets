@@ -1,0 +1,33 @@
+.generated-tweet {  
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: white;
+  border: 1px solid #d4d2d2;
+  border-radius: 5px;
+  font-size: 14px;
+  min-height: 90px;
+}
+
+.generated-tweet-user {  
+  color: black;
+  font-weight: bold;
+}
+
+.generated-tweet div{  
+  margin-top: 5px;
+  padding-left: 10px;
+  text-align: initial;
+}
+
+.phrase-maker-container button {
+  width: 170px;
+  margin: 20px 0px;
+  background: #0e9c0e;
+}
+
+.phrase-maker-container button:hover {
+  background: green;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
