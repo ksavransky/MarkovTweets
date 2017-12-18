@@ -158,7 +158,7 @@ class MarkovChainMaker extends Component {
     return (
       <div id='config-container'>
         {this.getStartingLinkDropDown(this.props.numberOfTweets)}
-        <button className='button create-chain' onClick={this.createChain.bind(this)}>Create Chain</button>
+        <button className='button create-chain' onClick={this.createChain.bind(this)}>Create Tweets Chain</button>
         {this.getProbabiltyForm()}
         <button className='button save-probabilities' onClick={this.saveProbabilities.bind(this)}>Save</button>
         <h6 className='save-message' style={{color: this.state.saveError ? 'red' : 'green' }}>{this.state.saveMessage}</h6>
