@@ -21,3 +21,14 @@
 .configure-title {
   padding-bottom: 0px !important;
 }
+
+.middle-section {
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 1320px) {
+  .middle-section {
+    flex-direction: row;
+  }
+}

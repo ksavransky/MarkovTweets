@@ -86,15 +86,16 @@ class ShowTweets extends Component {
             <h5>Latest Ten Tweets</h5>
             {tweetsKeys.map(key => <ShowTweet key={key} tweetId={this.state.tweetIds[key]} tweetIndex={key}/>)}
           </div>
-          <div id='phrase-maker' className='main-section'>
-            <h5>Generated Tweet</h5>
-            <div className='divider top'></div>
-            <h6>Generate a tweet based on a <a rel="noopener noreferrer" target='_blank' href='https://en.wikipedia.org/wiki/Markov_chain'>Markov Chain</a>, using the text of the lastest ten tweets.</h6>
-            <PhraseMaker actions={this.props.actions} combinedText={this.state.combinedText} user={this.props.user}/>
-          </div>
-          <div id='configure-markov-chain' className='main-section'>
-            <h5 className='configure-title'>Configure Tweets Order <div className='configure-subtitle'>Based on a <a rel="noopener noreferrer" target='_blank' href='https://en.wikipedia.org/wiki/Markov_chain'>Markov Chain</a></div></h5>
-            <MarkovChainMaker setMarkovOrder={this.setMarkovOrder} numberOfTweets={this.state.numberOfTweets} />
+          <div className='middle-section'>
+            <div id='phrase-maker' className='main-section'>
+              <h5>Generated Tweet</h5>
+              <div className='divider top'></div>
+              <PhraseMaker actions={this.props.actions} combinedText={this.state.combinedText} user={this.props.user}/>
+            </div>
+            <div id='configure-markov-chain' className='main-section'>
+              <h5 className='configure-title'>Configure Tweets Order <div className='configure-subtitle'>Based on a <a rel="noopener noreferrer" target='_blank' href='https://en.wikipedia.org/wiki/Markov_chain'>Markov Chain</a></div></h5>
+              <MarkovChainMaker setMarkovOrder={this.setMarkovOrder} numberOfTweets={this.state.numberOfTweets} />
+            </div>
           </div>
           <div id='markov-chain-results' className='main-section'>
             <h5>Reordered Tweets</h5>

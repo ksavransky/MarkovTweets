@@ -1,3 +1,13 @@
+#phrase-maker {
+  margin-bottom: 0px !important;
+}
+
+@media screen and (min-width: 1320px) {
+  #phrase-maker {
+    margin-bottom: 20px !important;
+  }
+}
+
 .generated-tweet {  
   display: flex;
   flex-direction: column;
@@ -22,7 +32,7 @@
 
 .phrase-maker-container .button {
   width: 170px;
-  margin: 20px 0px;
+  margin: 0px 0px 20px 0px;
   background: #0e9c0e;
 }
 
@@ -34,4 +44,19 @@
 
 .phrase-maker-container .button:focus {
   background: #0e9c0e;
+}
+
+.generated-tweet-explanation{
+  font-size: 14px;
+  margin: 10px 0px;
+}
+
+.divider.bottom {
+  visibility: visible;
+}
+
+@media screen and (min-width: 1320px) {
+  .divider.bottom {
+    visibility: hidden;
+  }
 }

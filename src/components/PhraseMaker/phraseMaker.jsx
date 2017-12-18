@@ -42,6 +42,8 @@ class PhraseMaker extends Component{
           <div className='generated-tweet-user'>@{this.state.user}</div>
           <div className='generated-tweet-text'>{newTweet}</div>
         </div>
+        <div className='generated-tweet-explanation'>Tweet generated based on a <a rel="noopener noreferrer" target='_blank' href='https://en.wikipedia.org/wiki/Markov_chain'>Markov Chain</a>, using the text of the lastest ten tweets.</div>
+        <div className='divider bottom'></div>
       </div>
     )
   }
