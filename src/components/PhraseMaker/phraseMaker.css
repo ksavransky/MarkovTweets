@@ -27,6 +27,7 @@
 .generated-tweet div{  
   margin-top: 5px;
   padding-left: 10px;
+  padding-right: 10px;
   text-align: initial;
 }
 
@@ -59,4 +60,8 @@
   .divider.bottom {
     visibility: hidden;
   }
+}
+
+.probability-form-container .divider {
+  visibility: hidden;
 }
