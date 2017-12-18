@@ -32,12 +32,15 @@ class PhraseMaker extends Component{
   }
    
   render(){
+    let newTweet = this.state.generatedTweet.slice(1, -1)
+    newTweet = newTweet.split(' ').filter(word => word.indexOf('…') === -1).join(' ')
+    newTweet = newTweet ? (newTweet[0].toUpperCase() + newTweet.slice(1)) : ''
     return (
       <div className='phrase-maker-container'>
         <button className='button new-tweet' onClick={this.createNewTweet}>Generate New Tweet</button>
         <div className='generated-tweet'>
           <div className='generated-tweet-user'>@{this.state.user}</div>
-          <div className='generated-tweet-text'>{this.state.generatedTweet.slice(1, -1)}</div>
+          <div className='generated-tweet-text'>{newTweet}</div>
         </div>
       </div>
     )
