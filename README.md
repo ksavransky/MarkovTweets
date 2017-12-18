@@ -8,5 +8,4 @@
 
 ### [Learn More about Markov Chains Here](https://en.wikipedia.org/wiki/Markov_chain)
 
-![Markov Tweets](./src/images/MarkovTweet.png)
-
+![Markov Tweets](/src/images/markovTweet.png)
