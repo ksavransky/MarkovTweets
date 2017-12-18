@@ -25,7 +25,11 @@ class ShowTweets extends Component {
       resultTweetArray.forEach((tweetId, index) => {
         tweetIdsObj[index + 1] = tweetId
       })
+      console.log('nextProps.searchResults');
+      console.log(nextProps.searchResults);
       let combinedText = this.combineAllSearchText(nextProps.searchResults)
+      console.log('combinedText');
+      console.log(combinedText);
       this.setState({
         tweetIds: tweetIdsObj,
         numberOfTweets: resultTweetArray.length,
@@ -41,9 +45,9 @@ class ShowTweets extends Component {
     }
     let allText = ''
     _.forEach(JSON.parse(result), tweetObj => {
-      allText += (tweetObj.text + ' ')
+      allText += (tweetObj.text)
     })
-    return allText.replace(/(?:https):\/\/[\n\S]+/g, '')
+    return allText.replace(/(?:https):\/\/[\n\S]+/g, '').replace('#', '').replace('&amp', '')
   }
 
   parseSearchResultForTweetIds(result){

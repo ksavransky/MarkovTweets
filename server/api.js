@@ -2,7 +2,6 @@ const api = module.exports = require('express').Router()
 
 var Twitter = require('twitter-node-client').Twitter;
 var MarkovChain = require('markovchain');
-
 // var MarkovChain = require('markovchain-generate');
  
 function twitterSearch(req, res){
@@ -34,6 +33,12 @@ function generatePhrase(req, res){
     res.status(200).send(phrase);
   };
   
+  // markovchain-generate library code:
+  // var chain = new MarkovChain()
+  // chain.generateChain(req.query.text);
+  // var phrase = chain.generateString();
+  
+  // markovchain libraray code:
   var chain = new MarkovChain(req.query.text);
   console.log('chain')
   console.log(chain)
@@ -46,7 +51,9 @@ function generatePhrase(req, res){
     return wordsArray[Math.floor(Math.random() * wordsArray.length)];
   }
   
-  var phrase = chain.start(getRandomWord(chain.wordBank)).end(10).process();
+  var phrase = chain.start(getRandomWord(chain.wordBank)).process();
+  
+  
   
   console.log('phrase')
   console.log(phrase)

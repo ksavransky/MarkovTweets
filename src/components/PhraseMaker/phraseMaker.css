@@ -20,14 +20,18 @@
   text-align: initial;
 }
 
-.phrase-maker-container button {
+.phrase-maker-container .button {
   width: 170px;
   margin: 20px 0px;
   background: #0e9c0e;
 }
 
-.phrase-maker-container button:hover {
+.phrase-maker-container .button:hover {
   background: green;
   -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
+}
+
+.phrase-maker-container .button:focus {
+  background: #0e9c0e;
 }
