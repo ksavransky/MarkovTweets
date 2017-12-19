@@ -6,6 +6,7 @@
 
 *This application was created using Node.js, React/Redux, Javascript ES6, Flexbox CSS, and Foundation*
 
-![Markov Tweets](/src/images/markovTweet.png)
+![Markov Tweets1](/src/images/markovTweet1.png)
+![Markov Tweets2](/src/images/markovTweet2.png)
 
 ### [Learn More about Markov Chains](https://en.wikipedia.org/wiki/Markov_chain)
