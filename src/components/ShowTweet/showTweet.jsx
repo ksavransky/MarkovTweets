@@ -7,7 +7,7 @@ const ShowTweet = ({tweetId, tweetIndex}) => {
   return (
     <div key={tweetIndex} className='tweet-container'>
         <label className='tweet-number-label'>{tweetIndex}</label>
-        <Tweet tweetId={tweetId} options={{conversation: 'none', width: '350' }}/>
+        <Tweet tweetId={tweetId} options={{conversation: 'none', width: '400' }}/>
     </div>
   )
 }

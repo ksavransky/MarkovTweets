@@ -1,12 +1,6 @@
 #configure-markov-chain {
   position: relative;
-  margin-top: 0px !important;
-}
-
-@media screen and (min-width: 1320px) {
-  #configure-markov-chain {
-    margin: 20px !important;
-  }
+  margin: 20px;
 }
 
 #configure-markov-chain .button {
@@ -46,6 +40,7 @@
 }
 
 .save-message {
+  margin-top: 20px;
   line-height: 1.1 !important;
 }
 

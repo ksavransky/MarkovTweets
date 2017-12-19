@@ -43,7 +43,6 @@ class PhraseMaker extends Component{
         </div>
         <button className='button new-tweet' onClick={this.createNewTweet}>Generate New Tweet</button>
         <div className='generated-tweet-explanation'>Tweet generated based on a <a rel="noopener noreferrer" target='_blank' href='https://en.wikipedia.org/wiki/Markov_chain'>Markov Chain</a>, using the text of the lastest ten tweets.</div>
-        <div className='divider bottom'></div>
       </div>
     )
   }

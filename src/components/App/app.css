@@ -23,9 +23,28 @@
   display: flex;
   justify-content: center;
   border-bottom: 5px solid #135086;
-  width: 50%;
+  width: 90%;
   margin: auto;
   margin-top: 10px;
+}
+
+@media screen and (min-width: 559px) {
+  .tweet-menu {
+    width: 80%;
+  }
+}
+
+@media screen and (min-width: 860px) {
+  .tweet-menu {
+    min-width: 840px;
+    width: 70%;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .tweet-menu {
+    width: 60%;
+  }
 }
 
 .tweet-menu div{
@@ -36,10 +55,19 @@
   width: 150px;
   line-height: 3;
   cursor: pointer;
+  font-size: 12px;
+}
+
+@media screen and (min-width: 559px) {
+  .tweet-menu div{
+    font-size: 16px;
+  }
 }
 
 .tweet-menu .selected {
   background: #135086;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .page {

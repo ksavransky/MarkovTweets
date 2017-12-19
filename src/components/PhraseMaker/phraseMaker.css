@@ -1,10 +1,10 @@
 #phrase-maker {
-  margin-bottom: 0px !important;
+  margin-top: -20px;
 }
 
-@media screen and (min-width: 1320px) {
+@media screen and (min-width: 880px) {
   #phrase-maker {
-    margin-bottom: 20px !important;
+    margin-top: 20px;
   }
 }
 
@@ -51,16 +51,6 @@
   font-size: 14px;
 }
 
-.divider.bottom {
-  visibility: visible;
-}
-
-@media screen and (min-width: 1320px) {
-  .divider.bottom {
-    visibility: hidden;
-  }
-}
-
 .probability-form-container .divider {
-  visibility: hidden;
+  margin-top: 20px;
 }
