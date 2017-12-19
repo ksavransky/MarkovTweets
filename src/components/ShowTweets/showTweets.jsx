@@ -13,9 +13,12 @@ class ShowTweets extends Component {
       tweetIds: null,
       numberOfTweets: 0,
       markovOrderTweetKeys: false,
-      combinedText: ''
+      combinedText: '',
+      menuItemSelected: 'Generator'
     }
     this.setMarkovOrder = this.setMarkovOrder.bind(this)
+    this.menuSwitch = this.menuSwitch.bind(this)
+    this.showSections = this.showSections.bind(this)
   }
 
   componentWillReceiveProps(nextProps){
@@ -25,11 +28,7 @@ class ShowTweets extends Component {
       resultTweetArray.forEach((tweetId, index) => {
         tweetIdsObj[index + 1] = tweetId
       })
-      console.log('nextProps.searchResults');
-      console.log(nextProps.searchResults);
       let combinedText = this.combineAllSearchText(nextProps.searchResults)
-      console.log('combinedText');
-      console.log(combinedText);
       this.setState({
         tweetIds: tweetIdsObj,
         numberOfTweets: resultTweetArray.length,
@@ -67,6 +66,43 @@ class ShowTweets extends Component {
       })
   }
 
+  menuSwitch(){
+    this.setState({
+      menuItemSelected: (this.state.menuItemSelected === 'Generator' ? 'Orderer' : 'Generator')
+    })
+  }
+
+  showSections(tweetsKeys){
+    if (this.state.menuItemSelected === 'Generator') {
+      return (
+        <div id='main-container' className='main-container grid-x'>
+          <div id='show-tweets' className='results main-section'>
+            <h5>Latest Ten Tweets</h5>
+            {tweetsKeys.map(key => <ShowTweet key={key} tweetId={this.state.tweetIds[key]} tweetIndex={key}/>)}
+          </div>
+          <div id='phrase-maker' className='main-section'>
+            <h5>Generated Tweet</h5>
+            <div className='divider top'></div>
+            <PhraseMaker actions={this.props.actions} combinedText={this.state.combinedText} user={this.props.user}/>
+          </div>
+        </div>
+      )
+    } else {
+      return (
+        <div id='main-container' className='main-container grid-x'>
+          <div id='configure-markov-chain' className='main-section'>
+            <h5 className='configure-title'>Configure Tweets Order <div className='configure-subtitle'>Based on a <a rel="noopener noreferrer" target='_blank' href='https://en.wikipedia.org/wiki/Markov_chain'>Markov Chain</a></div></h5>
+            <MarkovChainMaker setMarkovOrder={this.setMarkovOrder} numberOfTweets={this.state.numberOfTweets} />
+          </div>
+          <div id='markov-chain-results' className='main-section'>
+            <h5>Reordered Tweets</h5>
+              {this.state.markovOrderTweetKeys ? this.state.markovOrderTweetKeys.map((key, index) => <ShowTweet key={index} tweetId={this.state.tweetIds[key]} tweetIndex={key}/>) : ''}
+          </div>
+        </div>
+      )
+    }
+  }
+
   render() {
     if (this.state.tweetIds === null) {
         return (
@@ -81,26 +117,12 @@ class ShowTweets extends Component {
     } else {
       let tweetsKeys = Object.keys(this.state.tweetIds);
       return (
-        <div id='main-container' className='main-container grid-x'>
-          <div id='show-tweets' className='results main-section'>
-            <h5>Latest Ten Tweets</h5>
-            {tweetsKeys.map(key => <ShowTweet key={key} tweetId={this.state.tweetIds[key]} tweetIndex={key}/>)}
+        <div>
+          <div className='tweet-menu'>
+            <div className={ this.state.menuItemSelected === 'Generator' ? 'selected' : ''} onClick={this.menuSwitch}>Tweet Generator</div>
+            <div className={ this.state.menuItemSelected === 'Orderer' ? 'selected' : ''} onClick={this.menuSwitch}>Tweet Orderer</div>
           </div>
-          <div className='middle-section'>
-            <div id='phrase-maker' className='main-section'>
-              <h5>Generated Tweet</h5>
-              <div className='divider top'></div>
-              <PhraseMaker actions={this.props.actions} combinedText={this.state.combinedText} user={this.props.user}/>
-            </div>
-            <div id='configure-markov-chain' className='main-section'>
-              <h5 className='configure-title'>Configure Tweets Order <div className='configure-subtitle'>Based on a <a rel="noopener noreferrer" target='_blank' href='https://en.wikipedia.org/wiki/Markov_chain'>Markov Chain</a></div></h5>
-              <MarkovChainMaker setMarkovOrder={this.setMarkovOrder} numberOfTweets={this.state.numberOfTweets} />
-            </div>
-          </div>
-          <div id='markov-chain-results' className='main-section'>
-            <h5>Reordered Tweets</h5>
-              {this.state.markovOrderTweetKeys ? this.state.markovOrderTweetKeys.map((key, index) => <ShowTweet key={index} tweetId={this.state.tweetIds[key]} tweetIndex={key}/>) : ''}
-          </div>
+          {this.showSections(tweetsKeys)}
         </div>
       )
     }

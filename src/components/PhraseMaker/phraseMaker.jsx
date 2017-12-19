@@ -37,11 +37,11 @@ class PhraseMaker extends Component{
     newTweet = newTweet ? (newTweet[0].toUpperCase() + newTweet.slice(1)) : ''
     return (
       <div className='phrase-maker-container'>
-        <button className='button new-tweet' onClick={this.createNewTweet}>Generate New Tweet</button>
         <div className='generated-tweet'>
           <div className='generated-tweet-user'>@{this.state.user}</div>
           <div className='generated-tweet-text'>{newTweet}</div>
         </div>
+        <button className='button new-tweet' onClick={this.createNewTweet}>Generate New Tweet</button>
         <div className='generated-tweet-explanation'>Tweet generated based on a <a rel="noopener noreferrer" target='_blank' href='https://en.wikipedia.org/wiki/Markov_chain'>Markov Chain</a>, using the text of the lastest ten tweets.</div>
         <div className='divider bottom'></div>
       </div>

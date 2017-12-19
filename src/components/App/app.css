@@ -19,7 +19,30 @@
   margin-left: 10px;
 }
 
-.page{
+.tweet-menu {
+  display: flex;
+  justify-content: center;
+  border-bottom: 5px solid #135086;
+  width: 50%;
+  margin: auto;
+  margin-top: 10px;
+}
+
+.tweet-menu div{
+  margin: 10px 10px 0px 10px;
+  color: white;
+  background: #798f96;
+  height: 50px;
+  width: 150px;
+  line-height: 3;
+  cursor: pointer;
+}
+
+.tweet-menu .selected {
+  background: #135086;
+}
+
+.page {
     background-color: #e2e9ff;
     min-height: calc(100vh - 100px);
     height: 100%;
