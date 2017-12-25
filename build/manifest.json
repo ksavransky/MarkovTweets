@@ -1,6 +1,6 @@
 {
-  "short_name": "Markov Chain Tweets",
-  "name": "Markov Chain Tweets",
+  "short_name": "PrimeRadiant",
+  "name": "PrimeRadiant",
   "start_url": "./index.html",
   "display": "standalone",
   "theme_color": "#000000",

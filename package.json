@@ -1,5 +1,5 @@
 {
-  "name": "markovtweets3",
+  "name": "PrimeRadiant",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -42,6 +42,6 @@
     "gh-pages": "^1.1.0",
     "path": "^0.12.7",
     "react-dev-utils": "^4.2.1"
-  }, 
+  },
   "proxy": "http://localhost:8000"
 }
