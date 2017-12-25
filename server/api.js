@@ -22,7 +22,8 @@ function twitterSearch(req, res){
     // console.log('Data [%s]', data);
     res.status(200).send(data);
   };
-  twitter.getUserTimeline({ screen_name: req.query.userName, count: '10'}, error, success);
+  // twitter.getUserTimeline({ screen_name: req.query.userName, count: '10'}, error, success);
+  twitter.getSearch({'q':'#haiku','count': 10}, error, success);
 }
 
 api
