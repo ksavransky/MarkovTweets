@@ -14,16 +14,16 @@ function twitterSearch(req, res){
   }
   var twitter = new Twitter(config);
   var error = function (err, response, body) {
-    // console.log('ERROR - err:', err);
-    // console.log('ERROR - response:', response);
+    console.log('ERROR - err:', err);
+    console.log('ERROR - response:', response);
     res.status(500).send(err);
   };
   var success = function (data) {
-    // console.log('Data [%s]', data);
+    console.log('Data [%s]', data);
     res.status(200).send(data);
   };
   // twitter.getUserTimeline({ screen_name: req.query.userName, count: '10'}, error, success);
-  twitter.getSearch({'q':'#haiku','count': 10}, error, success);
+  twitter.getSearch({'query':'WTW'}, error, success);
 }
 
 api

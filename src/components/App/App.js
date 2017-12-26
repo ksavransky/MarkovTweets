@@ -21,13 +21,12 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.props.searchResults)
-
-    if(this.props.searchResults){
-      _.forEach(JSON.parse(this.props.searchResults), tweetObj => {
-        console.log(tweetObj);
-      })
-    }
+    console.log(this.props.searchResults);
+    // if(this.props.searchResults){
+    //   _.forEach(JSON.parse(this.props.searchResults), tweetObj => {
+    //     console.log(tweetObj);
+    //   })
+    // }
 
     return (
       <div id='app'>
