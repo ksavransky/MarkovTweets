@@ -43,7 +43,13 @@ function twitterTimeline(req, res){
     // console.log('Data [%s]', data);
     res.status(200).send(data);
   };
-  twitter.getUserTimeline({ screen_name: req.query.userName, count: '100', exclude_replies: 'true'}, error, success);
+  console.log('in screen_name: req.query')
+  console.log(req.query)
+  if (req.query.maxId !== 'null') {
+    twitter.getUserTimeline({ screen_name: req.query.userName, max_id: req.query.maxId, count: '100', exclude_replies: 'true'}, error, success);
+  } else {
+    twitter.getUserTimeline({ screen_name: req.query.userName, count: '100', exclude_replies: 'true'}, error, success);
+  }
 }
 
 

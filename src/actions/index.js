@@ -28,8 +28,8 @@ export const twitterSearch = (userName) => {
 
 
 export const TWITTER_TIMELINE_START = "TWITTER_TIMELINE_START";
-export const twitterTimelineStart = (userName) => {
-    return { type: TWITTER_TIMELINE_START, userName }
+export const twitterTimelineStart = (userName, maxId) => {
+    return { type: TWITTER_TIMELINE_START, userName, maxId }
 }
 
 export const TWITTER_TIMELINE_RESULTS = "TWITTER_TIMELINE_RESULTS";
@@ -43,10 +43,10 @@ export const twitterTimelineError = (data) => {
 }
 
 export const TWITTER_TIMELINE = "TWITTER_TIMELINE";
-export const twitterTimeline = (userName) => {
+export const twitterTimeline = (userName, maxId) => {
     return dispatch => {
-        dispatch(twitterTimelineStart(userName));
-        axios.get(`/api/twitter-timeline?userName=${userName}`)
+        dispatch(twitterTimelineStart(userName, maxId));
+        axios.get(`/api/twitter-timeline?userName=${userName}&maxId=${maxId}`)
             .then(res => dispatch(twitterTimelineResults(JSON.stringify(res.data))))
             .catch(err => dispatch(twitterTimelineError(err)))
     }
