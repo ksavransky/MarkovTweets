@@ -12,18 +12,18 @@ class App extends Component {
     this.state = {
       startDate: null,
       endDate: null,
+      startTimeTweetId: null,
+      endTimeTweetId: null,
       bigBenTweetsFirstHundred: null,
       bigBenTweetsSecondHundred: null,
-      results: []
+      resultTweets: null,
     }
     this.getUserTimeline = this.getUserTimeline.bind(this)
     this.handleStartDateChange = this.handleStartDateChange.bind(this)
     this.handleEndDateChange = this.handleEndDateChange.bind(this)
-    this.gotBigBenTweetsTwice = false
   }
 
   componentWillMount(){
-    // this.getTweets()
     this.getUserTimeline('big_ben_clock')
   }
 
@@ -32,15 +32,12 @@ class App extends Component {
     if (!_.isEqual(this.props, nextProps)){
       console.log('nextProps');
       console.log(nextProps);
-
       if (nextProps.timelineResults) {
         let parsedTimelineResultsObject = JSON.parse(nextProps.timelineResults)
         if(!this.state.bigBenTweetsFirstHundred){
           this.setState({bigBenTweetsFirstHundred: parsedTimelineResultsObject})
-          console.log('about to send getUserTimeline again with this as max_id:', parsedTimelineResultsObject[99]['id_str']);
           this.getUserTimeline('big_ben_clock', parsedTimelineResultsObject[99]['id_str'])
         } else {
-          console.log('in ELSE of this.state.bigBenTweetsFirstHundred and parsedTimelineResultsObject is:', parsedTimelineResultsObject);
           this.setState({bigBenTweetsSecondHundred: parsedTimelineResultsObject})
         }
       }
@@ -60,10 +57,6 @@ class App extends Component {
       //     tweetIds.push(tweetObj['id_str'])
       //   })
       // }
-      // console.log(tweetIds);
-      // this.setState({
-      //   results: tweetIds
-      // })
     }
   }
 
@@ -75,6 +68,7 @@ class App extends Component {
 
   handleStartDateChange(event){
     console.log('in handleStartDateChange', event);
+    console.log(Math.round(event.diff(new Date()) / 3600000))
     this.setState({
       startDate: event
     })
@@ -130,7 +124,7 @@ class App extends Component {
 
 
       <div className='tweets-results'>
-        {this.state.results.map((tweetId, tweetIndex) => <ShowTweet key={tweetIndex} tweetId={tweetId} tweetIndex={tweetIndex}/>)}
+        {!this.state.resultTweets ? '' : this.state.resultTweets.map((tweetId, tweetIndex) => <ShowTweet key={tweetIndex} tweetId={tweetId} tweetIndex={tweetIndex}/>)}
       </div>
       </div>
     );
