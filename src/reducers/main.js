@@ -1,7 +1,8 @@
-import { TWITTER_SEARCH_RESULTS,  TWITTER_SEARCH_ERROR } from '../actions';
+import { TWITTER_SEARCH_RESULTS,  TWITTER_SEARCH_ERROR, TWITTER_TIMELINE_RESULTS,  TWITTER_TIMELINE_ERROR} from '../actions';
 
 const initialState = {
-    searchResults: ''
+    searchResults: '',
+    timelineResults: ''
 }
 
 const main = (state = initialState, action) => {
@@ -9,7 +10,11 @@ const main = (state = initialState, action) => {
         case TWITTER_SEARCH_RESULTS:
             return { ...state, searchResults: action.data }
         case TWITTER_SEARCH_ERROR:
-            return { ...state, searchResults: "The User Does Not Exist. Please Search Again." }
+            return { ...state, searchResults: "Something went wrong. You are in TWITTER_SEARCH_ERROR." }
+        case TWITTER_TIMELINE_RESULTS:
+            return { ...state, timelineResults: action.data }
+        case TWITTER_TIMELINE_ERROR:
+            return { ...state, timelineResults: "Something went wrong. You are in TWITTER_TIMELINE_ERROR." }
         default:
             return state
     }

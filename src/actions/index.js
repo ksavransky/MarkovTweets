@@ -25,3 +25,29 @@ export const twitterSearch = (userName) => {
 
     }
 }
+
+
+export const TWITTER_TIMELINE_START = "TWITTER_TIMELINE_START";
+export const twitterTimelineStart = (userName) => {
+    return { type: TWITTER_TIMELINE_START, userName }
+}
+
+export const TWITTER_TIMELINE_RESULTS = "TWITTER_TIMELINE_RESULTS";
+export const twitterTimelineResults = (data) => {
+    return { type: TWITTER_TIMELINE_RESULTS, data }
+}
+
+export const TWITTER_TIMELINE_ERROR = "TWITTER_TIMELINE_ERROR";
+export const twitterTimelineError = (data) => {
+    return { type: TWITTER_TIMELINE_ERROR, data }
+}
+
+export const TWITTER_TIMELINE = "TWITTER_TIMELINE";
+export const twitterTimeline = (userName) => {
+    return dispatch => {
+        dispatch(twitterTimelineStart(userName));
+        axios.get(`/api/twitter-timeline?userName=${userName}`)
+            .then(res => dispatch(twitterTimelineResults(JSON.stringify(res.data))))
+            .catch(err => dispatch(twitterTimelineError(err)))
+    }
+}

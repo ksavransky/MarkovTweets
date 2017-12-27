@@ -12,21 +12,32 @@ class App extends Component {
     this.state = {
       startDate: null,
       endDate: null,
+      bigBenTweetIds: null,
       results: []
     }
-    this.getTweets = this.getTweets.bind(this)
+    this.getUserTimeline = this.getUserTimeline.bind(this)
     this.handleStartDateChange = this.handleStartDateChange.bind(this)
     this.handleEndDateChange = this.handleEndDateChange.bind(this)
+    this.gotBigBenTweets = false
   }
 
-  componentDidMount(){
+  componentWillMount(){
     // this.getTweets()
+    this.getUserTimeline('big_ben_clock')
   }
-
 
   componentWillReceiveProps(nextProps){
-    if (!_.isEqual(this.props, nextProps) && this.props.searchResults !== '[]'){
-      // console.log(nextProps);
+    console.log('in componentWillReceiveProps');
+    if (!_.isEqual(this.props, nextProps)){
+      console.log('nextProps');
+      console.log(nextProps);
+
+      // need to write function that parses big ben and gets its last id and adds its tweetsIds to state
+
+      if (!this.gotBigBenTweets && this.state.bigBenTweetIds) {
+        this.getUserTimeline('big_ben_clock', this.state.bigBenTweetIds.slice(-1)[0])
+        this.gotBigBenTweets = true
+      }
       // let tweetIds = []
       // if(nextProps.searchResults){
       //   let parsedObj = JSON.parse(nextProps.searchResults)
@@ -43,6 +54,12 @@ class App extends Component {
     }
   }
 
+
+  getUserTimeline(user, maxId = 'undefined'){
+    this.props.actions.twitterTimeline(user, maxId)
+  }
+
+
   handleStartDateChange(event){
     console.log('in handleStartDateChange', event);
     this.setState({
@@ -58,13 +75,13 @@ class App extends Component {
   }
 
   getTweets(){
-    // this.props.actions.twitterSearch('realdonaldtrump')
+    // this.props.actions.twitterSearch('')
   }
 
   render() {
-    console.log('in render');
+    console.log('in render - this.state:');
+    console.log(this.state);
     // console.log(this.props.searchResults);
-    // console.log(this.state.results);
     return (
       <div id='app'>
       <h3>Stock Sentiment</h3>
