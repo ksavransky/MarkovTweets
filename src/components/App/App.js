@@ -44,10 +44,9 @@ class App extends Component {
   render() {
     console.log('in render');
     // console.log(this.props.searchResults);
-    console.log(this.state.results);
+    // console.log(this.state.results);
     return (
       <div id='app'>
-        {this.props.searchResults}
         {this.state.results.map((tweetId, tweetIndex) => <ShowTweet key={tweetIndex} tweetId={tweetId} tweetIndex={tweetIndex}/>)}
       </div>
     );

@@ -24,7 +24,7 @@ function twitterSearch(req, res){
   };
   // twitter.getUserTimeline({ screen_name: req.query.userName, count: '10'}, error, success);
   // twitter.getUserTimeline({ screen_name: 'realdonaldtrump', count: '10'}, error, success);
-  twitter.getSearch({'query':'$WTW', 'since_id':'945624910898122752', 'max_id': '945780569388015616', 'lang': 'en', 'count': '100'}, error, success);
+  twitter.getSearch({'q':'$WTW', 'since_id':'945624910898122752', 'max_id': '945780569388015616', 'lang': 'en', 'count': '100'}, error, success);
 }
 
 api
