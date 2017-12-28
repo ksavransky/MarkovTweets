@@ -27,6 +27,7 @@ class App extends Component {
     this.getUserTimeline = this.getUserTimeline.bind(this)
     this.handleStartDateChange = this.handleStartDateChange.bind(this)
     this.handleEndDateChange = this.handleEndDateChange.bind(this)
+    this.createTweets = this.createTweets.bind(this)
   }
 
   componentWillMount(){
@@ -46,6 +47,10 @@ class App extends Component {
         } else {
           this.setState({bigBenTweetsSecondHundred: parsedTimelineResultsObject})
         }
+      }
+      if (nextProps.searchResults) {
+          let parsedSearchResultsObject = JSON.parse(nextProps.searchResults)
+          this.setState({resultTweets: parsedSearchResultsObject.statuses})
       }
     }
   }
@@ -115,6 +120,16 @@ class App extends Component {
     this.setState({stockString: e.target.value})
   }
 
+  createTweets(){
+    let tweetsKeys = Object.keys(this.state.resultTweets);
+    return (
+      <div>
+        {tweetsKeys.map(key => <ShowTweet key={key} tweetId={this.state.resultTweets[key]['id_str']} tweetIndex={key}/>)}
+      </div>
+    )
+    // this.state.resultTweets.map((tweetId, tweetIndex) => <ShowTweet key={tweetIndex} tweetId={tweetId} tweetIndex={tweetIndex}/>
+  }
+
   render() {
     console.log('in render - this.state:');
     console.log(this.state);
@@ -153,8 +168,8 @@ class App extends Component {
         <div className='error-message'>
           {this.state.errorMessage}
         </div>
-        <div className='tweets-results'>
-          {!this.state.resultTweets ? '' : this.state.resultTweets.map((tweetId, tweetIndex) => <ShowTweet key={tweetIndex} tweetId={tweetId} tweetIndex={tweetIndex}/>)}
+        <div className='tweet-results'>
+          {this.state.resultTweets ? this.createTweets() : ''}
         </div>
       </div>
     );

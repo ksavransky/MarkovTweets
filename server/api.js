@@ -21,9 +21,9 @@ function twitterSearch(req, res){
   };
 
   if (req.query.cashTag !== '') {
-    twitter.getUserTimeline({ 'q': ('$' + req.query.cashTag), 'since_id': req.query.sinceId, 'max_id': req.query.maxId, 'count': '100', 'exclude_replies': 'true'}, error, success);
+    twitter.getSearch({ 'q': ('$' + req.query.cashTag), 'since_id': req.query.sinceId, 'max_id': req.query.maxId, 'count': '100', 'exclude_replies': 'true'}, error, success);
   } else {
-    twitter.getUserTimeline({ 'q': ('$' + req.query.stockString), 'since_id': req.query.sinceId, 'max_id': req.query.maxId, 'count': '100', 'exclude_replies': 'true'}, error, success);
+    twitter.getSearch({ 'q': ('$' + req.query.stockString), 'since_id': req.query.sinceId, 'max_id': req.query.maxId, 'count': '100', 'exclude_replies': 'true'}, error, success);
   }
   // twitter.getUserTimeline({ screen_name: req.query.userName, count: '10'}, error, success);
   // twitter.getUserTimeline({ screen_name: 'big_ben_clock', count: '100', exclude_replies: 'true'}, error, success);

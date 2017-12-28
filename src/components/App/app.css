@@ -42,3 +42,9 @@ button {
 .error-message {
   color: red;
 }
+
+
+.tweet-results{
+  display: flex;
+  justify-content: center;
+}
