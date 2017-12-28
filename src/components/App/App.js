@@ -6,6 +6,8 @@ import ShowTweet from '../ShowTweet/showTweet.jsx'
 import _ from 'lodash'
 import './app.css';
 
+const hoursInAWeek = 168
+
 class App extends Component {
   constructor(props){
     super(props)
@@ -17,7 +19,7 @@ class App extends Component {
       startHoursAgo: null,
       bigBenTweetsFirstHundred: null,
       bigBenTweetsSecondHundred: null,
-      resultTweets: null,
+      resultTweets: null
     }
     this.getUserTimeline = this.getUserTimeline.bind(this)
     this.handleStartDateChange = this.handleStartDateChange.bind(this)
@@ -42,22 +44,6 @@ class App extends Component {
           this.setState({bigBenTweetsSecondHundred: parsedTimelineResultsObject})
         }
       }
-
-      // need to write function that parses big ben and gets its last id and adds its tweetsIds to state
-
-      // if (this.state.bigBenTweets && !this.gotBigBenTweetsTwice) {
-        // this.getUserTimeline('big_ben_clock', this.state.bigBenTweetIds.slice(-1)[0])
-        // this.gotBigBenTweets = true
-      // }
-      // let tweetIds = []
-      // if(nextProps.searchResults){
-      //   let parsedObj = JSON.parse(nextProps.searchResults)
-      //   console.log('parsedObj');
-      //   console.log(parsedObj);
-      //   _.forEach(parsedObj.statuses, tweetObj => {
-      //     tweetIds.push(tweetObj['id_str'])
-      //   })
-      // }
     }
   }
 
@@ -68,14 +54,13 @@ class App extends Component {
 
 
   handleStartDateChange(event){
-    console.log('in handleStartDateChange', event);
     let hoursAgo = Math.round(event.diff(new Date()) / -3600000)
-    if (hoursAgo >= 0) {
+    if (hoursAgo >= 0 && (hoursAgo < hoursInAWeek - 1)) {
       let bigBenId
       if (hoursAgo < 100) {
         bigBenId = this.state.bigBenTweetsFirstHundred[hoursAgo]['id_str']
       } else {
-        bigBenId = this.state.bigBenTweetsSecondHundred[100 - hoursAgo]['id_str']
+        bigBenId = this.state.bigBenTweetsSecondHundred[hoursAgo - 100]['id_str']
       }
       this.setState({
         startDate: event,
@@ -92,10 +77,24 @@ class App extends Component {
   }
 
   handleEndDateChange(event){
-    console.log('in handleEndDateChange', event);
-    this.setState({
-      endDate: event
-    })
+    let hoursAgo = Math.round(event.diff(new Date()) / -3600000)
+    if (hoursAgo < this.state.startHoursAgo && hoursAgo < hoursInAWeek) {
+      let bigBenId
+      if (hoursAgo < 100) {
+        bigBenId = this.state.bigBenTweetsFirstHundred[hoursAgo]['id_str']
+      } else {
+        bigBenId = this.state.bigBenTweetsSecondHundred[hoursAgo - 100]['id_str']
+      }
+      this.setState({
+        endDate: event,
+        endTimeTweetId: bigBenId
+      })
+    } else {
+      this.setState({
+        endDate: null,
+        endTimeTweetId: null
+      })
+    }
   }
 
   getTweets(){
@@ -108,41 +107,39 @@ class App extends Component {
     // console.log(this.props.searchResults);
     return (
       <div id='app'>
-      <h3>Stock Sentiment</h3>
-      <div id='inputs-container'>
-        <div className='dates-container'>
-            <label>Start Date and Time</label>
-            <DatePicker
-             selected={this.state.startDate}
-              showTimeSelect
-              timeIntervals={60}
-              onChange={this.handleStartDateChange}
-              timeFormat="HH:mm"
-              dateFormat="LLL"
-            />
-            <label>End Date and Time</label>
-            <DatePicker
-             selected={this.state.endDate}
-              showTimeSelect
-              timeIntervals={60}
-              onChange={this.handleEndDateChange}
-              timeFormat="HH:mm"
-              dateFormat="LLL"
-            />
+        <h3>Stock Sentiment</h3>
+        <div id='inputs-container'>
+          <div className='dates-container'>
+              <label>Start Date and Time</label>
+              <DatePicker
+               selected={this.state.startDate}
+                showTimeSelect
+                timeIntervals={60}
+                onChange={this.handleStartDateChange}
+                timeFormat="HH:mm"
+                dateFormat="LLL"
+              />
+              <label>End Date and Time</label>
+              <DatePicker
+               selected={this.state.endDate}
+                showTimeSelect
+                timeIntervals={60}
+                onChange={this.handleEndDateChange}
+                timeFormat="HH:mm"
+                dateFormat="LLL"
+              />
+          </div>
+          <div className='stock-inputs'>
+            <label>CashTag</label>
+              <input className='input' />
+            <label>Stock Name</label>
+              <input className='input' />
+          </div>
         </div>
-        <div className='stock-inputs'>
-          <label>CashTag</label>
-            <input className='input' />
-          <label>Stock Name</label>
-            <input className='input' />
+        <button className='button' type="button">Search Tweets</button>
+        <div className='tweets-results'>
+          {!this.state.resultTweets ? '' : this.state.resultTweets.map((tweetId, tweetIndex) => <ShowTweet key={tweetIndex} tweetId={tweetId} tweetIndex={tweetIndex}/>)}
         </div>
-      </div>
-      <button className='button' type="button">Search Tweets</button>
-
-
-      <div className='tweets-results'>
-        {!this.state.resultTweets ? '' : this.state.resultTweets.map((tweetId, tweetIndex) => <ShowTweet key={tweetIndex} tweetId={tweetId} tweetIndex={tweetIndex}/>)}
-      </div>
       </div>
     );
   }
