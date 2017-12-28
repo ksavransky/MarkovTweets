@@ -19,7 +19,9 @@ class App extends Component {
       startHoursAgo: null,
       bigBenTweetsFirstHundred: null,
       bigBenTweetsSecondHundred: null,
-      resultTweets: null
+      resultTweets: null,
+      cashTag: '',
+      stockString: ''
     }
     this.getUserTimeline = this.getUserTimeline.bind(this)
     this.handleStartDateChange = this.handleStartDateChange.bind(this)
@@ -101,6 +103,14 @@ class App extends Component {
     // this.props.actions.twitterSearch('')
   }
 
+  onChangeCashTag(e){
+    this.setState({cashTag: e.target.value})
+  }
+
+  onChangeStockString(e){
+    this.setState({stockString: e.target.value})
+  }
+
   render() {
     console.log('in render - this.state:');
     console.log(this.state);
@@ -131,9 +141,9 @@ class App extends Component {
           </div>
           <div className='stock-inputs'>
             <label>CashTag</label>
-              <input className='input' />
+              <input className='input' value={this.state.cashTag} onChange={this.onChangeCashTag.bind(this)}/>
             <label>Stock Name</label>
-              <input className='input' />
+              <input className='input' value={this.state.stockString} onChange={this.onChangeStockString.bind(this)}/>
           </div>
         </div>
         <button className='button' type="button">Search Tweets</button>
