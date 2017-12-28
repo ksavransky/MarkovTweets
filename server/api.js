@@ -19,9 +19,15 @@ function twitterSearch(req, res){
     console.log('Data [%s]', data);
     res.status(200).send(data);
   };
+
+  if (req.query.cashTag !== '') {
+    twitter.getUserTimeline({ 'q': ('$' + req.query.cashTag), 'since_id': req.query.sinceId, 'max_id': req.query.maxId, 'count': '100', 'exclude_replies': 'true'}, error, success);
+  } else {
+    twitter.getUserTimeline({ 'q': ('$' + req.query.stockString), 'since_id': req.query.sinceId, 'max_id': req.query.maxId, 'count': '100', 'exclude_replies': 'true'}, error, success);
+  }
   // twitter.getUserTimeline({ screen_name: req.query.userName, count: '10'}, error, success);
   // twitter.getUserTimeline({ screen_name: 'big_ben_clock', count: '100', exclude_replies: 'true'}, error, success);
-  twitter.getSearch({'q':'$WTW', 'since_id':'945624910898122752', 'max_id': '945780569388015616', 'lang': 'en', 'count': '100'}, error, success);
+  // twitter.getSearch({'q':'$WTW', 'since_id':'945624910898122752', 'max_id': '945780569388015616', 'lang': 'en', 'count': '100', 'exclude_replies': 'true'}, error, success);
 }
 
 
@@ -43,8 +49,6 @@ function twitterTimeline(req, res){
     // console.log('Data [%s]', data);
     res.status(200).send(data);
   };
-  console.log('in screen_name: req.query')
-  console.log(req.query)
   if (req.query.maxId !== 'null') {
     twitter.getUserTimeline({ screen_name: req.query.userName, max_id: req.query.maxId, count: '100', exclude_replies: 'true'}, error, success);
   } else {

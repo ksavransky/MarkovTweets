@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 export const TWITTER_SEARCH_START = "TWITTER_SEARCH_START";
-export const twitterSearchStart = (userName) => {
-    return { type: TWITTER_SEARCH_START, userName }
+export const twitterSearchStart = (sinceId, maxId, cashTag, stockString) => {
+    return { type: TWITTER_SEARCH_START, sinceId, maxId, cashTag, stockString }
 }
 
 export const TWITTER_SEARCH_RESULTS = "TWITTER_SEARCH_RESULTS";
@@ -16,10 +16,10 @@ export const twitterSearchError = (data) => {
 }
 
 export const TWITTER_SEARCH = "TWITTER_SEARCH";
-export const twitterSearch = (userName) => {
+export const twitterSearch = (sinceId, maxId, cashTag, stockString) => {
     return dispatch => {
-        dispatch(twitterSearchStart(userName));
-        axios.get(`/api/twitter-search?userName=${userName}`)
+        dispatch(twitterSearchStart());
+        axios.get(`/api/twitter-search?sinceId=${sinceId}&maxId=${maxId}&cashTag=${cashTag}&stockString=${stockString}`)
             .then(res => dispatch(twitterSearchResults(JSON.stringify(res.data))))
             .catch(err => dispatch(twitterSearchError(err)))
 

@@ -50,11 +50,9 @@ class App extends Component {
     }
   }
 
-
   getUserTimeline(user, maxId = null){
     this.props.actions.twitterTimeline(user, maxId)
   }
-
 
   handleStartDateChange(event){
     let hoursAgo = Math.round(event.diff(new Date()) / -3600000)
@@ -105,7 +103,7 @@ class App extends Component {
       this.setState({errorMessage: 'Somethings is wrong. Check your inputs.'})
     } else {
       this.setState({errorMessage: ''})
-      // this.props.actions.twitterSearch('')
+      this.props.actions.twitterSearch(this.state.startTimeTweetId , this.state.endTimeTweetId, this.state.cashTag, this.state.stockString)
     }
   }
 
