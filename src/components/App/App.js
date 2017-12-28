@@ -21,7 +21,8 @@ class App extends Component {
       bigBenTweetsSecondHundred: null,
       resultTweets: null,
       cashTag: '',
-      stockString: ''
+      stockString: '',
+      errorMessage: ''
     }
     this.getUserTimeline = this.getUserTimeline.bind(this)
     this.handleStartDateChange = this.handleStartDateChange.bind(this)
@@ -80,7 +81,7 @@ class App extends Component {
 
   handleEndDateChange(event){
     let hoursAgo = Math.round(event.diff(new Date()) / -3600000)
-    if (hoursAgo < this.state.startHoursAgo && hoursAgo < hoursInAWeek) {
+    if (hoursAgo >= 0 && hoursAgo < this.state.startHoursAgo && hoursAgo < hoursInAWeek) {
       let bigBenId
       if (hoursAgo < 100) {
         bigBenId = this.state.bigBenTweetsFirstHundred[hoursAgo]['id_str']
@@ -100,7 +101,12 @@ class App extends Component {
   }
 
   getTweets(){
-    // this.props.actions.twitterSearch('')
+    if (!this.state.startTimeTweetId || !this.state.endTimeTweetId || (this.state.cashTag === '' && this.state.stockString === '')){
+      this.setState({errorMessage: 'Somethings is wrong. Check your inputs.'})
+    } else {
+      this.setState({errorMessage: ''})
+      // this.props.actions.twitterSearch('')
+    }
   }
 
   onChangeCashTag(e){
@@ -114,7 +120,6 @@ class App extends Component {
   render() {
     console.log('in render - this.state:');
     console.log(this.state);
-    // console.log(this.props.searchResults);
     return (
       <div id='app'>
         <h3>Stock Sentiment</h3>
@@ -146,7 +151,10 @@ class App extends Component {
               <input className='input' value={this.state.stockString} onChange={this.onChangeStockString.bind(this)}/>
           </div>
         </div>
-        <button className='button' type="button">Search Tweets</button>
+        <button className='button' type="button" onClick={this.getTweets.bind(this)}>Search Tweets</button>
+        <div className='error-message'>
+          {this.state.errorMessage}
+        </div>
         <div className='tweets-results'>
           {!this.state.resultTweets ? '' : this.state.resultTweets.map((tweetId, tweetIndex) => <ShowTweet key={tweetIndex} tweetId={tweetId} tweetIndex={tweetIndex}/>)}
         </div>
