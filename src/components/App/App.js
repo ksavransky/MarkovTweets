@@ -14,6 +14,7 @@ class App extends Component {
       endDate: null,
       startTimeTweetId: null,
       endTimeTweetId: null,
+      startHoursAgo: null,
       bigBenTweetsFirstHundred: null,
       bigBenTweetsSecondHundred: null,
       resultTweets: null,
@@ -68,10 +69,26 @@ class App extends Component {
 
   handleStartDateChange(event){
     console.log('in handleStartDateChange', event);
-    console.log(Math.round(event.diff(new Date()) / 3600000))
-    this.setState({
-      startDate: event
-    })
+    let hoursAgo = Math.round(event.diff(new Date()) / -3600000)
+    if (hoursAgo >= 0) {
+      let bigBenId
+      if (hoursAgo < 100) {
+        bigBenId = this.state.bigBenTweetsFirstHundred[hoursAgo]['id_str']
+      } else {
+        bigBenId = this.state.bigBenTweetsSecondHundred[100 - hoursAgo]['id_str']
+      }
+      this.setState({
+        startDate: event,
+        startTimeTweetId: bigBenId,
+        startHoursAgo: hoursAgo
+      })
+    } else {
+      this.setState({
+        startDate: null,
+        startTimeTweetId: null,
+        startHoursAgo: null
+      })
+    }
   }
 
   handleEndDateChange(event){
